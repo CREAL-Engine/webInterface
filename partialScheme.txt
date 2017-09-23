@@ -1,0 +1,45 @@
+Classes for view : 
+
+class pageModule 
+{
+	private var mainObject; //where the id tagged object goes
+	var inlineCode;  //inline code (read hack) of content within the object
+	constructor {
+		
+		if (mainObject = getElementByID("user input string") != TRUE) //boolean function that assigns tag to private var
+		return false; 
+		else return true; 
+	}
+
+	method hide(); //hide the module
+	method delete(); //delete the module
+	method purge(); //same a delete
+	method update(); //update
+	method update("inline"); //an inline update with new inline code. 
+	
+	
+}
+
+
+
+class pageView {
+
+constructor { 
+ //forgot what to do here 
+} 
+
+
+private array/list class pageModule modules; //keep the page modules in a list
+ var moduleSize; //module size
+queue inbox; //in queue 
+queue outbox; //out queue
+var inboxSize; //size of inbox 
+var outboxSize; //size of outbox 
+
+
+
+
+
+
+
+}
