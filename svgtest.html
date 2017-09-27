@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+		<meta content='width=device-width, initial-scale=1' name='viewport'/>
+		<meta name="generator" content="Geany 1.24.1" />
+
+		<title>SVG Practice</title>
+
+	</head>
+	<body>
+
+	<a id="linkTest" target="blank">Click</a>
+
+	<script>
+
+		// Display words for when button clicked
+		function displayWords() {
+			document.getElementById("words").innerHTML = "Hello World";
+		}
+
+		// Alert for when svg is clicked
+		function svgAlert() {
+			alert("Ow!");
+		}
+
+		// Practice blob object
+		var str = "I can javascript";
+		var myBlob = new Blob([str], {type : 'text/plain'});
+
+		// Set link's href and blob's url
+		document.getElementById("linkTest").href = URL.createObjectURL(myBlob);
+
+	</script>
+
+	<button onclick="displayWords()">Press Here</button>
+
+	<p id="words"></p>
+
+	<!-- SVG that alerts when clicked -->
+	<svg onclick="svgAlert()" width="100" height="100">
+		<circle cx="50" cy="50" r="40" stroke="purple" stroke-width="4" fill="blue" />
+	</svg>
+
+	<br>
+
+	<svg width="100" height="100">
+		<a id="tabtest"target="blank">
+			<circle cx="50" cy="50" r="40" stroke="green" stroke-width="4" fill="blue" />
+			<text fill="white" text-anchor="middle" y="50" x="50">My Blob</text>
+		</a>
+	</svg>
+
+	<script>
+		// Practice blob object #2
+		var str2 = "SVG blob #2";
+		var myBlob2 = new Blob([str2], {type : 'text/plain'});
+
+		// Set link's href and blob's url
+		document.getElementById("tabtest").setAttribute('href', URL.createObjectURL(myBlob2));
+
+	</script>
+
+	<br>
+	<svg>
+		<g stroke="blue" stroke-width="4" fill="green">
+			<circle cx="50" cy="35" r="20"/>
+			<circle cx="50" cy="80" r="20"/>
+			<circle cx="50" cy="125" r="20"/>
+
+		</g>
+	</svg>
+
+	<a href="https://www.reddit.com/" target="blank">Click Here</a>
+
+
+	</body>
+
+</html>

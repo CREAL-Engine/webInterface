@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+			<meta content='width=device-width, initial-scale=1' name='viewport'/>
+			<meta name="generator" content="Geany 1.24.1" />
+
+			<title>File in File Practice</title>
+	</head>
+
+	<body>
+
+	<!-- Output of web worker-->
+	<p>Count numbers: <output id="result"></output></p>
+
+	<!-- Buttons to control web worker-->
+	<button onclick="startWorker()">Start Worker</button>
+	<button onclick="stopWorker()">Stop Worker</button>
+
+	<!-- Creates js file, puts file in blob, runs file in background w/ webworker-->
+	<script>
+
+	// REFERENCES: w3schools web worker tutorial https://www.w3schools.com/html/html5_webworkers.asp
+	//						 https://www.html5rocks.com/en/tutorials/workers/basics/#toc-inlineworkers
+
+
+	/*** CREATE INLINE JS FILE IN BLOB ***/
+
+	// js file counts for a set amount of time, postMessage sends data to web worker
+	var jsFile = " var i = 0; function timedCount() { i = i + 1; postMessage(i); setTimeout('timedCount()',500); } timedCount(); ";
+	// Create blob w/ file contents
+	var myBlob = new Blob([jsFile], {type : 'text/javascript'});
+	// Create link to blob
+	var blobURL = window.URL.createObjectURL(myBlob);
+
+
+	/*** SET UP WEB WORKER ***/
+
+	// Initialize web worker variable
+	var w;
+
+	// Function to start webworker function
+	function startWorker() {
+		// Check if web worker supported by browser
+		if(typeof(Worker) !== "undefined") {
+			// Check if web worker is defined
+			if(typeof(w) == "undefined") {
+				// Create web worker
+				w = new Worker(blobURL);
+			}
+
+			// Event listener to recieve data from js file
+			w.onmessage = function(event) {
+				// Output data to screen
+				document.getElementById("result").innerHTML = event.data;
+			};
+		}
+		// Error message if webworker
+		else {
+			document.getElementById("result").innerHTML = "Sorry! No Web Worker support.";
+		}
+	}
+
+	// Function to stop webworker function
+	function stopWorker() {
+		// End web worker
+		w.terminate();
+		// set webworker to undedfined to allow for reuse of web worker
+		w = undefined;
+	}
+
+	</script>
+
+
+	</body>
+</html>
