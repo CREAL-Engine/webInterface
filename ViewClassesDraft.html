@@ -1,0 +1,402 @@
+<!-- 
+
+	Psudeocode from Randy:
+	
+	Classes for view : 
+
+	class pageModule 
+	{
+	    private var mainObject; //where the id tagged object goes
+	    var inlineCode;  //inline code (read hack) of content within the object
+	    constructor {
+	        
+	        if (mainObject = getElementByID("user input string") != TRUE) //boolean function that assigns tag to private var
+	        return false; 
+	        else return true; 
+	    }
+
+	    method hide(); //hide the module
+	    method delete(); //delete the module
+	    method purge(); //same a delete
+	    method update(); //update
+	    method update("inline"); //an inline update with new inline code. 
+	    
+	    
+	}
+
+
+
+	class pageView {
+
+	constructor { 
+	 //forgot what to do here 
+	} 
+
+
+	private array/list class pageModule modules; //keep the page modules in a list
+	 var moduleSize; //module size
+	queue inbox; //in queue 
+	queue outbox; //out queue
+	var inboxSize; //size of inbox 
+	var outboxSize; //size of outbox 
+
+
+	}
+
+	Sources:
+		- Class info: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes
+		- Webpage Structure info: http://webstyleguide.com/wsg3/6-page-structure/3-site-design.html
+
+-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+			<meta content='width=device-width, initial-scale=1' name='viewport'/>
+			<meta name="generator" content="Geany 1.24.1" />
+
+			<title>Draft For View Classes</title>
+	</head>
+<body>
+
+	<script type="text/javascript">
+		
+		class ClassName {
+
+			constructor(data1, data2) {
+				this.data1 = d1;
+				this.data2 = d2;
+			}
+
+			get methodName() {
+				return this.otherMethod();
+			}
+
+
+			otherMethod() {
+				return this.data1 + this.data2;
+			}
+		}
+
+		class pageModule {
+
+			private var mainObject; //where the id tagged object goes
+	    	var inlineCode;  //inline code (read hack) of content within the object
+	    	var visibility //boolean represntling whether the module is hidden/shown
+
+		    constructor {
+		        
+		        if (mainObject = getElementByID("user input string") != TRUE) //boolean function that assigns tag to private var
+		        return false; 
+		        else return true; 
+		    }
+
+		    method hide(); //hide the module
+		    method show(); //show the module
+		    method delete(); //delete the module
+		    method purge(); //same a delete
+		    method update(); //update
+		    method update("inline"); //an inline update with new inline code. 
+
+
+		}
+
+		class pageView {
+
+			constructor { 
+	 			//forgot what to do here 
+			} 
+
+			private array/list class pageModule modules; //keep the page modules in a list
+	 		var moduleSize; //module size
+			queue inbox; //in queue 
+			queue outbox; //out queue
+			var inboxSize; //size of inbox 
+			var outboxSize; //size of outbox 
+
+		}
+
+		class header extends pageModule {
+
+			var title; // title of current page
+			var homepageLink; // logo/link to homepage
+			var navBar; // includes tabs, links to other pages
+
+			constructor(t, h, n) {
+				this.title = t;
+				this.homepageLink = h;
+				this.navBar = n;
+			}
+
+		}
+
+		class footer extends pageModule {
+
+			var authorName; // name of author of page
+			var copyrightStatement;
+			var contactInfo;
+			var otherLinks; // list of other links to include
+
+			constructor(a,cS, cI, o) {
+				this.authorName = a;
+				this.copyrightStatement = cS;
+				this.contactInfo = cI;
+				this.otherLinks = o;
+			}
+			hide() {
+
+				this.visibility = false;
+
+			}
+		    show() {
+
+		    	this.visibility = true;
+
+		    }
+		    delete() {
+
+		    }
+		    purge() {
+
+		    }
+		    update() {
+
+		    }
+		    update("inline") {
+
+		    }
+
+		}
+
+		class leftSidebar extends pageModule {
+
+			var modules; // list of modules contained in leftSidebar
+
+			constructor(mods) {
+				this.modules = mods;
+			}
+
+			hide() {
+
+				this.visibility = false;
+
+			}
+		    show() {
+
+		    }
+		    delete() {
+
+		    }
+		    purge() {
+
+		    }
+		    update() {
+
+		    }
+		    update("inline") {
+
+		    }
+			
+		}
+
+		class rightSidebar extends pageModule {
+
+			var modules; // list of modules contained in rightSidebar
+
+			constructor(mods) {
+				this.modules = mods;
+			}
+			hide() {
+
+				this.visibility = false;
+
+			}
+		    show() {
+
+		    }
+		    delete() {
+
+		    }
+		    purge() {
+
+		    }
+		    update() {
+
+		    }
+		    update("inline") {
+
+		    }
+			
+		}
+
+		class centerArea extends pageModule {
+
+			var modules; // list of modules contained in centerArea
+
+			constructor(mods) {
+				this.modules = mods;
+			}
+			hide() {
+
+				this.visibility = false;
+
+			}
+		    show() {
+
+		    }
+		    delete() {
+
+		    }
+		    purge() {
+
+		    }
+		    update() {
+
+		    }
+		    update("inline") {
+
+		    }
+			
+		}
+
+		class graph extends pageModule {
+
+			var graphTitle;
+			var grahType;
+			var graphData;
+			var graphHeight;
+			var graphWidth;
+
+			constructor(title, type, data, h, w) {
+				this.graphTitle = title;
+				this.grahType = type;
+				this.graphData = data;
+				this.graphHeight = h;
+				this.graphWidth = w;
+			}
+			hide() {
+
+				this.visibility = false;
+
+			}
+		    show() {
+
+		    }
+		    delete() {
+
+		    }
+		    purge() {
+
+		    }
+		    update() {
+
+		    }
+		    update("inline") {
+
+		    }
+			
+		}
+
+		class images extends pageModule {
+
+			var img;
+
+			constructor(i) {
+				this.img = i;
+			}
+			hide() {
+
+				this.visibility = false;
+
+			}
+		    show() {
+
+		    }
+		    delete() {
+
+		    }
+		    purge() {
+
+		    }
+		    update() {
+
+		    }
+		    update("inline") {
+
+		    }
+			
+		}
+
+		class navigationBar extends pageModule {
+
+			var tabs;
+			var links;
+
+			constructor(t, l) {
+				this.tabs = t;
+				this.links = l;
+			}
+			hide() {
+
+				this.visibility = false;
+
+			}
+		    show() {
+
+		    }
+		    delete() {
+
+		    }
+		    purge() {
+
+		    }
+		    update() {
+
+		    }
+		    update("inline") {
+
+		    }
+			
+		}
+
+		class userProfileSection extends pageModule {
+
+			var userName;
+			var userProjects;
+
+			constructor(name, projs) {
+				this.userName = name;
+				this.userProjects = projs;
+			}
+			hide() {
+
+				this.visibility = false;
+
+			}
+		    show() {
+
+		    }
+		    delete() {
+
+		    }
+		    purge() {
+
+		    }
+		    update() {
+
+		    }
+		    update("inline") {
+
+		    }
+			
+		}
+
+
+
+
+	</script>
+
+</body>
+</html>
