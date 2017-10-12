@@ -1,3 +1,4 @@
+
 <!-- 
 
 	Psudeocode from Randy:
@@ -86,20 +87,28 @@
 	    	var inlineCode;  //inline code (read hack) of content within the object
 	    	var visibility //boolean represntling whether the module is hidden/shown
 
-		    constructor {
+		    constructor(mainObject, inlineCode, visibility) {
 		        
 		        if (mainObject = getElementByID("user input string") != TRUE) //boolean function that assigns tag to private var
 		        return false; 
 		        else return true; 
 		    }
-
-		    method hide(); //hide the module
-		    method show(); //show the module
-		    method delete(); //delete the module
-		    method purge(); //same a delete
-		    method update(); //update
-		    method update("inline"); //an inline update with new inline code. 
-
+		    hide(idName) { //hide the module
+		    	var x = getElementByID(idName);
+		    	x.style.display = "none";
+		    }
+		    show(idName) { //show the module
+		    	var x = getElementByID(idName);
+		    	x.style.display = "block";
+		    }
+		    delete() {        // delete all members of the class
+		    	this = null;
+		    } //delete the module
+		    purge(); //same a delete
+		    update(); //update
+		    update(inline, idName) {
+		    	getElementByID(idName).innherHTML = inline;
+		    } //an inline update with new inline code.  // use innherHTML, take in string, and idname, update html 
 
 		}
 
@@ -109,7 +118,7 @@
 	 			//forgot what to do here 
 			} 
 
-			private array/list class pageModule modules; //keep the page modules in a list
+			private list //class pageModule modules; //keep the page modules in a list
 	 		var moduleSize; //module size
 			queue inbox; //in queue 
 			queue outbox; //out queue
@@ -124,10 +133,14 @@
 			var homepageLink; // logo/link to homepage
 			var navBar; // includes tabs, links to other pages
 
-			constructor(t, h, n) {
-				this.title = t;
-				this.homepageLink = h;
-				this.navBar = n;
+			constructor(mainObject, inlineCode, visibility, title, homepageLink, navBar) {
+
+				super.constructor(mainObject, inlineCode, visibility);
+
+				this.title = title;
+				this.homepageLink = homepageLink;
+				this.navBar = navBar;
+				;
 			}
 
 		}
@@ -139,22 +152,15 @@
 			var contactInfo;
 			var otherLinks; // list of other links to include
 
-			constructor(a,cS, cI, o) {
-				this.authorName = a;
-				this.copyrightStatement = cS;
-				this.contactInfo = cI;
-				this.otherLinks = o;
+			constructor(mainObject, inlineCode, visibility, authorName,copyrightStatement, contactInfo, otherLinks) {
+
+				super.constructor(mainObject, inlineCode, visibility);
+
+				this.authorName = authorName;
+				this.copyrightStatement = copyrightStatement;
+				this.contactInfo = contactInfo;
+				this.otherLinks = otherLinks;
 			}
-			hide() {
-
-				this.visibility = false;
-
-			}
-		    show() {
-
-		    	this.visibility = true;
-
-		    }
 		    delete() {
 
 		    }
@@ -174,18 +180,12 @@
 
 			var modules; // list of modules contained in leftSidebar
 
-			constructor(mods) {
-				this.modules = mods;
+			constructor(mainObject, inlineCode, visibility, modlues) {
+
+				super.constructor(mainObject, inlineCode, visibility);
+
+				this.modules = modules;
 			}
-
-			hide() {
-
-				this.visibility = false;
-
-			}
-		    show() {
-
-		    }
 		    delete() {
 
 		    }
@@ -205,17 +205,12 @@
 
 			var modules; // list of modules contained in rightSidebar
 
-			constructor(mods) {
-				this.modules = mods;
+			constructor(mainObject, inlineCode, visibility, modules) {
+
+				super.constructor(mainObject, inlineCode, visibility);
+
+				this.modules = modules;
 			}
-			hide() {
-
-				this.visibility = false;
-
-			}
-		    show() {
-
-		    }
 		    delete() {
 
 		    }
@@ -235,17 +230,12 @@
 
 			var modules; // list of modules contained in centerArea
 
-			constructor(mods) {
-				this.modules = mods;
+			constructor(mainObject, inlineCode, visibility, modules) {
+
+				super.constructor(mainObject, inlineCode, visibility);
+
+				this.modules = modules;
 			}
-			hide() {
-
-				this.visibility = false;
-
-			}
-		    show() {
-
-		    }
 		    delete() {
 
 		    }
@@ -269,21 +259,16 @@
 			var graphHeight;
 			var graphWidth;
 
-			constructor(title, type, data, h, w) {
-				this.graphTitle = title;
-				this.grahType = type;
-				this.graphData = data;
-				this.graphHeight = h;
-				this.graphWidth = w;
+			constructor(mainObject, inlineCode, visibility, graphTitle, grahType, graphData, graphHeight, graphWidth) {
+
+				super.constructor(mainObject, inlineCode, visibility);
+
+				this.graphTitle = graphTitle;
+				this.grahType = grahType;
+				this.graphData = graphData;
+				this.graphHeight = graphHeight;
+				this.graphWidth = graphWidth;
 			}
-			hide() {
-
-				this.visibility = false;
-
-			}
-		    show() {
-
-		    }
 		    delete() {
 
 		    }
@@ -303,17 +288,12 @@
 
 			var img;
 
-			constructor(i) {
-				this.img = i;
+			constructor(mainObject, inlineCode, visibility, img) {
+
+				super.constructor(mainObject, inlineCode, visibility);
+
+				this.img = img;
 			}
-			hide() {
-
-				this.visibility = false;
-
-			}
-		    show() {
-
-		    }
 		    delete() {
 
 		    }
@@ -334,18 +314,13 @@
 			var tabs;
 			var links;
 
-			constructor(t, l) {
-				this.tabs = t;
-				this.links = l;
+			constructor(mainObject, inlineCode, visibility, tabs, links) {
+
+				super.constructor(mainObject, inlineCode, visibility);
+
+				this.tabs = tabs;
+				this.links = links;
 			}
-			hide() {
-
-				this.visibility = false;
-
-			}
-		    show() {
-
-		    }
 		    delete() {
 
 		    }
@@ -366,18 +341,13 @@
 			var userName;
 			var userProjects;
 
-			constructor(name, projs) {
-				this.userName = name;
-				this.userProjects = projs;
+			constructor(mainObject, inlineCode, visibility, name, projs) {
+
+				super.constructor(mainObject, inlineCode, visibility);
+
+				this.userName = userName;
+				this.userProjects = userProjects;
 			}
-			hide() {
-
-				this.visibility = false;
-
-			}
-		    show() {
-
-		    }
 		    delete() {
 
 		    }

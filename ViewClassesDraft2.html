@@ -1,0 +1,344 @@
+
+<!-- 
+
+	Psudeocode from Randy:
+	
+	Classes for view : 
+
+	class pageModule 
+	{
+	    private var mainObject; //where the id tagged object goes
+	    var inlineCode;  //inline code (read hack) of content within the object
+	    constructor {
+	        
+	        if (mainObject = getElementByID("user input string") != TRUE) //boolean function that assigns tag to private var
+	        return false; 
+	        else return true; 
+	    }
+
+	    method hide(); //hide the module
+	    method delete(); //delete the module
+	    method purge(); //same a delete
+	    method update(); //update
+	    method update("inline"); //an inline update with new inline code. 
+	    
+	    
+	}
+
+
+
+	class pageView {
+
+	constructor { 
+	 //forgot what to do here 
+	} 
+
+
+	private array/list class pageModule modules; //keep the page modules in a list
+	 var moduleSize; //module size
+	queue inbox; //in queue 
+	queue outbox; //out queue
+	var inboxSize; //size of inbox 
+	var outboxSize; //size of outbox 
+
+
+	}
+
+	Sources:
+		- Class info: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes
+		- Webpage Structure info: http://webstyleguide.com/wsg3/6-page-structure/3-site-design.html
+
+-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+			<meta content='width=device-width, initial-scale=1' name='viewport'/>
+			<meta name="generator" content="Geany 1.24.1" />
+
+			<title>Draft For View Classes</title>
+	</head>
+<body>
+
+	<script type="text/javascript">
+		
+		function pageModule (mainObject, inlineCode, visibility) {
+
+	    	this.mainObject = mainObject; //where the id tagged object goes // FIXME: make private
+	    	this.inlineCode = inlineCode; //inline code (read hack) of content within the object
+	        
+	        if (mainObject = getElementByID("user input string") != TRUE) //boolean function that assigns tag to private var
+	        	return false; 
+	        else 
+	        	return true; 
+		    
+		    this.hide = function hide(idName) { //hide the module
+		    	var x = getElementByID(idName);
+		    	x.style.display = "none";
+		    }
+		    this.show = function show(idName) { //show the module
+		    	var x = getElementByID(idName);
+		    	x.style.display = "block";
+		    }
+		    this.delete = function delete() {        // delete all members of the class
+		    	this.mainObject = null;
+		    	this.inlineCode = null;
+		    } //delete the module
+		    this.purge = function purge() {} //same a delete
+		    this.update = function update() {} //update
+		    this.update = function update(idName) {
+		    	getElementByID(idName).innherHTML = this.inlineCode;
+		    } //an inline update with new inline code.  // use innherHTML, take in string, and idname, update html 
+
+		}
+
+		function pageView(modulesList, moduleSize, inbox, outbox, inboxSize, outboxSize) {
+
+			this.modulesList = modulesList; //class pageModule modules; //keep the page modules in a list // FIXME: make private
+			this.moduleSize = moduleSize; // module size
+			this.inbox = inbox; // in queue // FIXME: make queue
+			this.outbox = outbox; // out queue // FIXME: make queue
+			this.inboxSize = inboxSize; // size of inbox
+			this.outboxSize = outboxSize; // size of outbox
+
+		}
+
+		function header (mainObject, inlineCode, title, homepageLink, navBar) {
+
+			pageModule.call(this, mainObject, inlineCode);
+
+			this.title = title;
+			this.homepageLink = homepageLink;
+			this.navBar = navBar;
+
+			this.delete = function delete() {        // delete all members of the class
+		    	this.mainObject = null;
+		    	this.inlineCode = null;
+		    	this.title = null;
+				this.homepageLink = null;
+				this.navBar = null;
+		    } //delete the module
+
+
+		}
+		heaader.prototype = new pageModule();
+
+		function footer (mainObject, inlineCode, authorName,copyrightStatement, contactInfo, otherLinks) {
+
+			pageModule.call(this, mainObject, inlineCode);
+
+			this.authorName = authorName;
+			this.copyrightStatement = copyrightStatement;
+			this.contactInfo = contactInfo;
+			this.otherLinks = otherLinks;
+
+		    this.delete = function delete() {        // delete all members of the class
+		    	this.mainObject = null;
+		    	this.inlineCode = null;
+		    	this.authorName = null;
+				this.copyrightStatement = null;
+				this.contactInfo = null;
+				this.otherLinks = null;
+		    } //delete the module
+		    purge() {
+
+		    }
+		    update() {
+
+		    }
+		    update(idName) {
+
+		    }
+
+		}
+		footer.prototype = new pageModule();
+
+		function leftSidebar(mainObject, inlineCode, modlues) {
+
+			pageModule.call(this, mainObject, inlineCode);
+
+			this.modules = modules;
+	
+		    this.delete = function delete() {        // delete all members of the class
+		    	this.mainObject = null;
+		    	this.inlineCode = null;
+		    	this.modules = null;
+		    } //delete the module
+		    purge() {
+
+		    }
+		    update() {
+
+		    }
+		    update(idName) {
+
+		    }
+			
+		}
+		leftSidebar.prototype = new pageModule();
+
+		function rightSidebar(mainObject, inlineCode, modules) {
+
+			pageModule.call(this, mainObject, inlineCode);
+
+			this.modules = modules;
+
+		    this.delete = function delete() {        // delete all members of the class
+		    	this.mainObject = null;
+		    	this.inlineCode = null;
+		    	this.modules = null;
+		    } //delete the module
+		    purge() {
+
+		    }
+		    update() {
+
+		    }
+		    update(idName) {
+
+		    }
+			
+		}
+		rightSidebar.prototype = new pageModule();
+
+		function centerArea(mainObject, inlineCode, modules) {
+
+			pageModule.call(this, mainObject, inlineCode);
+
+			this.modules = modules;
+			
+		    this.delete = function delete() {        // delete all members of the class
+		    	this.mainObject = null;
+		    	this.inlineCode = null;
+		    	this.modules = null;
+		    } //delete the module
+		    purge() {
+
+		    }
+		    update() {
+
+		    }
+		    update(idName) {
+
+		    }
+			
+		}
+		centerArea.prototype = new pageModule();
+
+		function graph(mainObject, inlineCode, graphTitle, grahType, graphData, graphHeight, graphWidth) {
+
+			pageModule.call(this, mainObject, inlineCode);
+
+			this.graphTitle = graphTitle;
+			this.grahType = grahType;
+			this.graphData = graphData;
+			this.graphHeight = graphHeight;
+			this.graphWidth = graphWidth;
+
+		    this.delete = function delete() {        // delete all members of the class
+		    	this.mainObject = null;
+		    	this.inlineCode = null;
+		    	this.graphTitle = null;
+				this.grahType = null;
+				this.graphData = null;
+				this.graphHeight = null;
+				this.graphWidth = null;
+		    } //delete the module
+		    purge() {
+
+		    }
+		    update() {
+
+		    }
+		    update(idName) {
+
+		    }
+			
+		}
+		graph.prototype = new pageModule();
+
+		function images(mainObject, inlineCode, img) {
+
+			pageModule.call(this, mainObject, inlineCode);
+
+			this.img = img;
+			
+		    this.delete = function delete() {        // delete all members of the class
+		    	this.mainObject = null;
+		    	this.inlineCode = null;
+		    	this.img = null;
+		    } //delete the module
+		    purge() {
+
+		    }
+		    update() {
+
+		    }
+		    update(idName) {
+
+		    }
+			
+		}
+		images.prototype = new pageModule();
+
+		function navigationBar(mainObject, inlineCode, tabs, links) {
+
+			pageModule.call(this, mainObject, inlineCode);
+
+			this.tabs = tabs;
+			this.links = links;
+			
+		    this.delete = function delete() {        // delete all members of the class
+		    	this.mainObject = null;
+		    	this.inlineCode = null;
+		    	this.tabs = null;
+				this.links = null;
+		    } //delete the module
+		    purge() {
+
+		    }
+		    update() {
+
+		    }
+		    update(idName) {
+
+		    }
+			
+		}
+		navigationBar.prototype = new pageModule();
+
+		function userProfileSection(mainObject, inlineCode, name, projs) {
+
+			pageModule.call(this, mainObject, inlineCode);
+
+			this.userName = userName;
+			this.userProjects = userProjects;
+			
+		    this.delete = function delete() {        // delete all members of the class
+		    	this.mainObject = null;
+		    	this.inlineCode = null;
+		    	this.userName = null;
+				this.userProjects = null;
+		    } //delete the module
+		    purge() {
+
+		    }
+		    update() {
+
+		    }
+		    update(idName) {
+
+		    }
+			
+		}
+		userProfileSection.prototype = new pageModule();
+
+
+
+
+	</script>
+
+</body>
+</html>
