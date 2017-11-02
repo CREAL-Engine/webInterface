@@ -58,13 +58,67 @@
 			<meta content='width=device-width, initial-scale=1' name='viewport'/>
 			<meta name="generator" content="Geany 1.24.1" />
 
-			<title>Draft For View Classes</title>
+			<title>Draft For View Classes 2</title>
+
+			<style>
+
+				.head {
+					background-color: Lavender;
+					text-align: center;
+					font-family: verdana;
+					color: purple;
+					
+				}
+
+				.mainCont {
+					background-color: LightBlue;
+					text-align: center;
+					font-family: verdana;
+					color: blue;
+					float: left;
+					width: 50%;
+					
+
+				}
+
+				.leftSide {
+					background-color: LightGreen;
+					text-align: center;
+					font-family: verdana;
+					color: green;
+					float: left;
+					width: 25%;
+					
+				}
+
+				.rightSide {
+					background-color: pink;
+					text-align: center;
+					font-family: verdana;
+					color: DeepPink;
+					float: left;
+					width: 25%;
+					
+
+				}
+
+				.foot {
+					background-color: Turquoise;
+					text-align: center;
+					font-family: verdana;
+					color: Teal;
+
+				}
+
+				
+			</style>
+
 	</head>
 <body>
 
 	<script type="text/javascript">
 		
-		function pageModule (mainObject, inlineCode, visibility) {
+		function pageModule (mainObject, inlineCode) {
 
 	    	this.mainObject = mainObject; //where the id tagged object goes // FIXME: make private
 	    	this.inlineCode = inlineCode; //inline code (read hack) of content within the object
@@ -82,7 +136,7 @@
 		    	var x = getElementByID(idName);
 		    	x.style.display = "block";
 		    }
-		    this.delete = function delete() {        // delete all members of the class
+		    this.deletePageMod = function deletePageMod() {        // delete all members of the class
 		    	this.mainObject = null;
 		    	this.inlineCode = null;
 		    } //delete the module
@@ -105,25 +159,34 @@
 
 		}
 
-		function header (mainObject, inlineCode, title, homepageLink, navBar) {
+		function header (mainObject, inlineCode, title, homepageLink) {
 
 			pageModule.call(this, mainObject, inlineCode);
 
 			this.title = title;
 			this.homepageLink = homepageLink;
-			this.navBar = navBar;
+			//this.navBar = navBar;
 
-			this.delete = function delete() {        // delete all members of the class
+			this.deletePageMod = function deletePageMod() {        // delete all members of the class
 		    	this.mainObject = null;
 		    	this.inlineCode = null;
 		    	this.title = null;
 				this.homepageLink = null;
-				this.navBar = null;
+				//this.navBar = null;
 		    } //delete the module
+		    //purge() {
+
+		    //}
+		    this.update = function update() {
+
+		    }
+		    //update(idName) {
+
+		    //}
 
 
 		}
-		heaader.prototype = new pageModule();
+		header.prototype = new pageModule();
 
 		function footer (mainObject, inlineCode, authorName,copyrightStatement, contactInfo, otherLinks) {
 
@@ -134,7 +197,7 @@
 			this.contactInfo = contactInfo;
 			this.otherLinks = otherLinks;
 
-		    this.delete = function delete() {        // delete all members of the class
+		    this.deletePageMod = function deletePageMod() {        // delete all members of the class
 		    	this.mainObject = null;
 		    	this.inlineCode = null;
 		    	this.authorName = null;
@@ -142,13 +205,7 @@
 				this.contactInfo = null;
 				this.otherLinks = null;
 		    } //delete the module
-		    purge() {
-
-		    }
-		    update() {
-
-		    }
-		    update(idName) {
+		    this.update = function update() {
 
 		    }
 
@@ -161,18 +218,12 @@
 
 			this.modules = modules;
 	
-		    this.delete = function delete() {        // delete all members of the class
+		    this.deletePageMod = function deletePageMod() {        // delete all members of the class
 		    	this.mainObject = null;
 		    	this.inlineCode = null;
 		    	this.modules = null;
 		    } //delete the module
-		    purge() {
-
-		    }
-		    update() {
-
-		    }
-		    update(idName) {
+		   this.update = function update() {
 
 		    }
 			
@@ -185,47 +236,35 @@
 
 			this.modules = modules;
 
-		    this.delete = function delete() {        // delete all members of the class
+		    this.deletePageMod = function deletePageMod() {        // delete all members of the class
 		    	this.mainObject = null;
 		    	this.inlineCode = null;
 		    	this.modules = null;
 		    } //delete the module
-		    purge() {
-
-		    }
-		    update() {
-
-		    }
-		    update(idName) {
+		    this.update = function update() {
 
 		    }
 			
 		}
 		rightSidebar.prototype = new pageModule();
 
-		function centerArea(mainObject, inlineCode, modules) {
+		function mainContent(mainObject, inlineCode, modules) {
 
 			pageModule.call(this, mainObject, inlineCode);
 
 			this.modules = modules;
 			
-		    this.delete = function delete() {        // delete all members of the class
+		    this.deletePageMod = function deletePageMod() {        // delete all members of the class
 		    	this.mainObject = null;
 		    	this.inlineCode = null;
 		    	this.modules = null;
 		    } //delete the module
-		    purge() {
-
-		    }
-		    update() {
-
-		    }
-		    update(idName) {
+		    this.update = function update() {
 
 		    }
 			
 		}
-		centerArea.prototype = new pageModule();
+		mainContent.prototype = new pageModule();
 
 		function graph(mainObject, inlineCode, graphTitle, grahType, graphData, graphHeight, graphWidth) {
 
@@ -237,7 +276,7 @@
 			this.graphHeight = graphHeight;
 			this.graphWidth = graphWidth;
 
-		    this.delete = function delete() {        // delete all members of the class
+		    this.deletePageMod = function deletePageMod() {        // delete all members of the class
 		    	this.mainObject = null;
 		    	this.inlineCode = null;
 		    	this.graphTitle = null;
@@ -246,13 +285,7 @@
 				this.graphHeight = null;
 				this.graphWidth = null;
 		    } //delete the module
-		    purge() {
-
-		    }
-		    update() {
-
-		    }
-		    update(idName) {
+		    this.update = function update() {
 
 		    }
 			
@@ -265,18 +298,12 @@
 
 			this.img = img;
 			
-		    this.delete = function delete() {        // delete all members of the class
+		    this.deletePageMod = function deletePageMod() {        // delete all members of the class
 		    	this.mainObject = null;
 		    	this.inlineCode = null;
 		    	this.img = null;
 		    } //delete the module
-		    purge() {
-
-		    }
-		    update() {
-
-		    }
-		    update(idName) {
+		    this.update = function update() {
 
 		    }
 			
@@ -290,19 +317,13 @@
 			this.tabs = tabs;
 			this.links = links;
 			
-		    this.delete = function delete() {        // delete all members of the class
+		    this.deletePageMod = function deletePageMod() {        // delete all members of the class
 		    	this.mainObject = null;
 		    	this.inlineCode = null;
 		    	this.tabs = null;
 				this.links = null;
 		    } //delete the module
-		    purge() {
-
-		    }
-		    update() {
-
-		    }
-		    update(idName) {
+		    this.update = function update() {
 
 		    }
 			
@@ -316,29 +337,51 @@
 			this.userName = userName;
 			this.userProjects = userProjects;
 			
-		    this.delete = function delete() {        // delete all members of the class
+		    this.deletePageMod = function deletePageMod() {        // delete all members of the class
 		    	this.mainObject = null;
 		    	this.inlineCode = null;
 		    	this.userName = null;
 				this.userProjects = null;
 		    } //delete the module
-		    purge() {
-
-		    }
-		    update() {
-
-		    }
-		    update(idName) {
+		    this.update = function update() {
 
 		    }
 			
 		}
 		userProfileSection.prototype = new pageModule();
-
-
-
-
 	</script>
+
+	<div class="head">
+		<h3> Header </h3>
+		<p> Hello header </p>
+	</div>
+
+	<div class="row">
+
+		<div class="leftSide"> 
+			<h3> Left Sidebar </h3>
+			<p> Hello left </p>
+
+		</div>
+
+		<div class="mainCont"> 
+			<h3> Main Content </h3>
+			<p> Hello main </p>
+
+		</div>
+
+		<div class="rightSide"> 
+			<h3> Right Sidebar </h3>
+			<p> Hello right </p>
+
+		</div>
+	</div>
+
+	<div class="foot"> 
+		<h3> Footer </h3> 
+		<p> Hello footer </p>
+
+	</div>
 
 </body>
 </html>
