@@ -8,6 +8,7 @@ import websockets
 import json
 import base64
 import random
+# ~ import pyskein
 #using enumeration types 
 from enum import Enum
 
@@ -53,6 +54,10 @@ async def echo(websocket, path):
 		
 		if jobT == 'login':
 			ttt = 0 
+		if jobT == 'get':
+			ttt = 0
+		if jobT == 'set':
+			ttt = 0
 		
 		await asyncio.sleep(random.random() * 3)
 		
@@ -68,6 +73,8 @@ async def mainWsLoop(websocket, path):
 asyncio.get_event_loop().run_until_complete(
 	websockets.serve(echo, 'localhost', 8799))
 asyncio.get_event_loop().run_forever()
+
+
 
 
 
