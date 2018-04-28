@@ -1,0 +1,15 @@
+{ "nodeList" :
+	[
+		{ 
+			"internalNodeName" : "tmpName",
+			"lineColor" : "1",
+			"externalNodeLabel" : "tmpName"
+		}
+	]
+}
+
+{ "nodeConnectionLinkList":
+	[
+		{ "from" : "tmpConn", "to" : "tmpConn2"}
+	]
+}

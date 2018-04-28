@@ -53,13 +53,15 @@ async def echo(websocket, path):
 		payload = returnedString['payload']
 		
 		if jobT == 'login':
-			ttt = 0 
+			if subT = 'romxero':
+				
+				 
 		if jobT == 'get':
 			ttt = 0
 		if jobT == 'set':
 			ttt = 0
 		
-		await asyncio.sleep(random.random() * 3)
+		await asyncio.sleep(random.random() * 3) #sleep to save the cpu
 		
 		# ~ print (returnedString)
 
