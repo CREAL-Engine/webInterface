@@ -53,9 +53,7 @@ async def echo(websocket, path):
 		payload = returnedString['payload']
 		
 		if jobT == 'login':
-			if subT = 'romxero':
-				
-				 
+			ttt = 0
 		if jobT == 'get':
 			ttt = 0
 		if jobT == 'set':
