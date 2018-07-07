@@ -358,18 +358,87 @@ textarea {
  }
 }
 
-</style> </head>
+
+.rotateSpecial {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 120px;
+    height: 120px;
+    margin:-60px 0 0 -60px;
+    -webkit-animation:spin 2s linear infinite;
+    -moz-animation:spin 2s linear infinite;
+    animation:spin 2s linear infinite;
+}
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+
+</style> 
+
+<script>
+
+//global variables here
+
+var connectedToServer = 0; //this determines if we are connected to the server or not
+var serverName = "paul.creacompute.lbl.gov"; //default server name
+var internalKey = "null"; //key grabbed from server
+
+
+
+</script>
+
+
+</head>
+
+
+
   <body>
     <header>
-		<img class="increaseImageWidth" alt="-" src=>
-		 <span class="logo">Project Sarah</span> </header>
+		
+		 
+
+        <ul>
+          <li><a onclick="showOrHide('navBarContents');" href='#'><img alt="-" src="open-menu-symbolic.svg" width="30px" height="20px" ></a></li>
+          <li><span class="logo">Project Sarah</span> </li>
+          <li>-</li>
+          <li>-</li>
+          <li>-</li>
+          <li></li>
+          <li><img alt="-" src="application-rss+xml-symbolic.svg" width="30px" height="30px" ></li>
+        </ul>
+
+
+</header>
     <script>
+
+
+function showOrHide(elementId)
+{
+	if (document.getElementById(elementId).hidden == true)
+	{
+		document.getElementById(elementId).hidden = false;
+		return -1; //false
+	}
+	else
+	{
+		document.getElementById(elementId).hidden = true;
+		return 1; //true
+	}
+}
+
+
+
 
 
 
 </script> <div id="selectedNodeText"> </div>
     <div class="flex-container">
-      <nav class="nav" id="leftSideBar">
+		
+		
+      <nav class="nav" id="navBar">
+		  
+		  <div id="navBarContents">
         <ul>
           <li><a href="#">Item 1</a></li>
           <br />
@@ -378,15 +447,29 @@ textarea {
           <li><a href="#">Item 3</a></li>
           <br />
         </ul>
+		  </div>
+
+
       </nav>
+
+<script>
+
+
+
+</script>
+
+
       <article class="article" id="middleArea">
- 
+<div style="background-color: transparent;">
+ <img class="rotateSpecial" src="process-working-symbolic.svg" width="30px" height="20px" id="loadingAnim" hidden>
       <div class="jumbotron">
   <h1 class="display-4">Welcome to Project Sarah!</h1>
   <p class="lead">The premiere site for aging based bioinformatics data</p>
   <hr class="my-4">
   <p>Learn more!</p>
   <a class="btn btn-primary btn-lg" href="#" role="button">Sign Up</a>
+	</div>
+
 </div>
       </article>
       <aside class="aside" id="rightSideBar"> </aside>
