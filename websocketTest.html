@@ -18,15 +18,19 @@ var ws;  //main web socket variable
  if ("WebSocket" in window)
 	{
            //~ alert("WebSockets are supported");
+
+           console.log("WebSockets are supported");
                
-               // Let us open a web socket
-			ws = new WebSocket("ws://localhost:8080/engine"); //instantiate the object //connect to server
+            // Let us open a web socket
+			//ws = new WebSocket("ws://localhost:8080/engine"); //instantiate 
+			//ws = new WebSocket("ws://localhost:8765");
+			ws = new WebSocket("ws://73.70.24.234:8080/"); //instantiate the object //connect to server
 	}
 	else
 	{
 		//~ alert("WebSockets not supported");
            
-		
+		console.log("WebSockets not supported");
 		ws = null; //not good
 	}
   

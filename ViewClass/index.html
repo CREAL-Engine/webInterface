@@ -1,0 +1,115 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <meta content='width=device-width, initial-scale=1' name='viewport'/>
+    <meta name="generator" content="Geany 1.24.1" />
+
+    <title>View Class Implementation</title>
+
+    <script src="viewClass.js"></script>
+    <link rel="stylesheet" type="text/css" href="stylesheet.css">
+
+</head>
+
+<body class="pageModuleClass">
+
+    <!-- Header -->
+    <div class="headerClass">
+        <p id="headerInlineClass"></p> <!-- how to get title for header from js to html -->
+    </div>
+
+
+    <!-- Navigation Bar -->
+    <div class="navigationBarClass">
+        <p id="navigationBarInlineClass"></p>
+    </div>
+
+    <div class="rowClass">
+
+        <!-- Left Side Bar -->
+        <div class="leftSideBarClass">
+            <p id="leftSideBarInlineClass"></p>
+
+        </div>
+
+        <!-- Main Content -->
+        <div class="mainContentClass">
+            <p id="mainContentInlineClass"></p>
+
+        </div>
+
+        <!-- Right Side Bar -->
+        <div class="rightSideBarClass">
+            <p id="rightSideBarInlineClass"></p>
+
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="footerClass">
+        <p id="footerInlineClass"></p>
+    </div>
+
+    <script src="viewClassEx.js"></script>
+
+
+</body>
+</html>
+
+<!--
+
+	Psudeocode from Randy:
+
+	Classes for view :
+
+	class pageModule
+	{
+	    private var mainObject; //where the id tagged object goes
+	    var inlineCode;  //inline code (read hack) of content within the object
+	    constructor {
+
+	        if (mainObject = getElementByID("user input string") != TRUE) //boolean function that assigns tag to private var
+	        return false;
+	        else return true;
+	    }
+
+	    method hide(); //hide the module
+	    method delete(); //delete the module
+	    method purge(); //same a delete
+	    method update(); //update
+	    method update("inline"); //an inline update with new inline code.
+
+
+	}
+
+
+
+	class pageView {
+
+	constructor {
+	 //forgot what to do here
+	}
+
+
+	private array/list class pageModule modules; //keep the page modules in a list
+	 var moduleSize; //module size
+	queue inbox; //in queue
+	queue outbox; //out queue
+	var inboxSize; //size of inbox
+	var outboxSize; //size of outbox
+
+
+	}
+
+	Sources:
+		- Class info: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes
+		- Webpage Structure info: http://webstyleguide.com/wsg3/6-page-structure/3-site-design.html
+
+-->

@@ -1,0 +1,397 @@
+
+<!-- 
+
+	Psudeocode from Randy:
+	
+	Classes for view : 
+
+	class pageModule 
+	{
+	    private var mainObject; //where the id tagged object goes
+	    var inlineCode;  //inline code (read hack) of content within the object
+	    constructor {
+	        
+	        if (mainObject = getElementByID("user input string") != TRUE) //boolean function that assigns tag to private var
+	        return false; 
+	        else return true; 
+	    }
+
+	    method hide(); //hide the module
+	    method delete(); //delete the module
+	    method purge(); //same a delete
+	    method update(); //update
+	    method update("inline"); //an inline update with new inline code. 
+	    
+	    
+	}
+
+
+
+	class pageView {
+
+	constructor { 
+	 //forgot what to do here 
+	} 
+
+
+	private array/list class pageModule modules; //keep the page modules in a list
+	 var moduleSize; //module size
+	queue inbox; //in queue 
+	queue outbox; //out queue
+	var inboxSize; //size of inbox 
+	var outboxSize; //size of outbox 
+
+
+	}
+
+	Sources:
+		- Class info: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes
+		- Webpage Structure info: http://webstyleguide.com/wsg3/6-page-structure/3-site-design.html
+
+-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+			<meta content='width=device-width, initial-scale=1' name='viewport'/>
+			<meta name="generator" content="Geany 1.24.1" />
+
+			<title>Draft For View Classes 2</title>
+
+			<style>
+
+				.headerClass {
+					background-color: Lavender;
+					text-align: center;
+					font-family: verdana;
+					color: purple;
+					width: 100%;
+				}
+
+				.navigationBarClass {
+					background-color: lightyellow;
+					text-align: center;
+					font-family: verdana;
+					color: darkgoldenrod;
+					width: 100%;
+				}
+
+				.mainContentClass {
+					background-color: LightBlue;
+					text-align: center;
+					font-family: verdana;
+					color: blue;
+					float: left;
+					width: 50%;
+				}
+
+				.leftSideBarClass {
+					background-color: LightGreen;
+					text-align: center;
+					font-family: verdana;
+					color: green;
+					float: left;
+					width: 25%;
+				}
+
+				.rightSideBarClass {
+					background-color: pink;
+					text-align: center;
+					font-family: verdana;
+					color: DeepPink;
+					float: left;
+					width: 25%;
+					
+
+				}
+
+				.footerClass {
+					background-color: Turquoise;
+					text-align: center;
+					font-family: verdana;
+					color: Teal;
+
+				}
+
+				
+			</style>
+
+	</head>
+<body class="pageModuleClass">
+
+	<script type="text/javascript">
+
+		// TODO
+		// - Finish update(), figure out what to do if no argument
+		// 		- remove update()
+		// - Determine if each subclass needs it's own update
+		// - determine if each subclass needs it's own versions of the functions
+		// - clarify if purge is needed
+		// 	-- dont need
+		// - determine if "pageModule.call(this, mainObject, inlineCode);" is right for constructor
+		// - determine if mainObject is jusy html tag idName for the module
+		// 		- string w/ names
+		// - clarify if moduleSize is size of moduleList
+		// 	- size of module list
+		
+		// PAGE MODULE //
+		function PageModule (mainObject, inlineCode) {
+
+	    	this.mainObject = mainObject; //where the id tagged object goes // FIXME: make private
+	    	this.inlineCode = inlineCode; //inline code (read hack) of content within the object
+	        
+	        if (mainObject = document.getElementById("user input string") != true) //boolean function that assigns tag to private var
+	        	return false; 
+	        else 
+	        	return true; 
+		    
+		    this.prototype.hide = function hide(idName) {
+		    	var x = getElementByID(idName);
+		    	x.style.display = "none";
+		    } // hide the module
+
+		    this.prototype.show = function show(idName) {
+		    	var x = getElementByID(idName);
+		    	x.style.display = "block";
+		    } // show the module
+
+		    this.prototype.deletePageMod = function deletePageMod() {        // delete all members of the class
+		    	this.mainObject = null;
+		    	this.inlineCode = null;
+		    } //delete the module
+
+		    // this.purge = function purge() {} //same a delete
+
+		    this.prototype.update = function update() { //update, called when putting off updating inline code for user, make update overloaded, psuedo overload, if based on number of args
+
+			    if(arguments.length == 0) { // if we have put off updating what is displayed
+			    	// clairfy what to update
+			    }
+			    else if (arguments.length == 1) { // if we update display immendiately
+			    	getElementByID(idName).innherHTML = this.inlineCode;
+			    }
+
+		//	    this.update = function update() {} //update
+
+		//	    this.update = function update(idName) {
+		//	    	getElementByID(idName).innherHTML = this.inlineCode;
+		//	    } //an inline update with new inline code.  // use innherHTML, take in string, and idname, update html 
+		
+
+		}
+
+		// PAGE VIEW //
+		function PageView(modulesList, moduleSize, inbox, outbox, inboxSize, outboxSize) {
+
+			this.modulesList = modulesList; //class pageModule modules; //keep the page modules in a list // FIXME: make private
+			this.moduleSize = moduleSize; // module size
+			this.inbox = inbox; // in queue // FIXME: make queue
+			this.outbox = outbox; // out queue // FIXME: make queue
+			this.inboxSize = inboxSize; // size of inbox
+			this.outboxSize = outboxSize; // size of outbox
+
+		}
+
+		// HEADER //
+		function Header(mainObject, inlineCode) {
+
+			pageModule.call(this, mainObject, inlineCode);
+
+			this.deletePageMod = function deletePageMod() {        // delete all members of the class
+		    	this.mainObject = null;
+		    	this.inlineCode = null;
+				//this.navBar = null;
+		    } //delete the module
+		    //purge() {
+
+		    //}
+		    this.update = function update() { //update, called when putting off updating inclide code for user, make update overloaded, psuedo overload, if based on number of args
+
+		    if(arguments.length == 0) { // if we have put off updating what is displayed
+
+		    }
+		    else if (arguments.length == 1) { // if we update display immendiately
+
+		    }
+
+
+		    }
+		    //update(idName) {
+
+		    //}
+		}
+		Header.prototype = new pageModule();
+
+		// FOOTER //
+		function Footer(mainObject, inlineCode) {
+
+			pageModule.call(this, mainObject, inlineCode);
+
+		    this.deletePageMod = function deletePageMod() {        // delete all members of the class
+		    	this.mainObject = null;
+		    	this.inlineCode = null;
+		    } //delete the module
+		    this.update = function update() {  //update, called when putting off updating inclide code for user, make update overloaded, psuedo overload, if based on number if args
+
+		    }
+
+		}
+		Footer.prototype = new pageModule();
+
+		// LEFT SIDE BAR //
+		function LeftSidebar(mainObject, inlineCode) {
+
+			pageModule.call(this, mainObject, inlineCode);
+	
+		    this.deletePageMod = function deletePageMod() {        // delete all members of the class
+		    	this.mainObject = null;
+		    	this.inlineCode = null;
+		    } //delete the module
+		   this.update = function update() {
+
+		    }
+			
+		}
+		LeftSidebar.prototype = new pageModule();
+
+		// RIGHT SIDE BAR //
+		function RightSidebar(mainObject, inlineCode) {
+
+			pageModule.call(this, mainObject, inlineCode);
+
+		    this.deletePageMod = function deletePageMod() {        // delete all members of the class
+		    	this.mainObject = null;
+		    	this.inlineCode = null;
+		    } //delete the module
+		    this.update = function update() {
+
+		    }
+			
+		}
+		RightSidebar.prototype = new pageModule();
+
+		// MAIN CONTENT //
+		function MainContent(mainObject, inlineCode) {
+
+			pageModule.call(this, mainObject, inlineCode);
+			
+		    this.deletePageMod = function deletePageMod() {        // delete all members of the class
+		    	this.mainObject = null;
+		    	this.inlineCode = null;
+		    } //delete the module
+		    this.update = function update() {
+
+		    }
+			
+		}
+		MainContent.prototype = new pageModule();
+
+		// NAVIGATION BAR //
+		function NavigationBar(mainObject, inlineCode) {
+
+			pageModule.call(this, mainObject, inlineCode);
+			
+		    this.deletePageMod = function deletePageMod() {        // delete all members of the class
+		    	this.mainObject = null;
+		    	this.inlineCode = null;
+		    } //delete the module
+		    this.update = function update() {
+
+		    }
+			
+		}
+		NavigationBar.prototype = new pageModule();
+
+	</script>
+
+
+
+
+	<script type="text/javascript">
+
+		// PRACTICE IMPLEMENTATION //
+
+		// Objects
+		var myHeader = new Header(head, "inline for header");
+		var myFooter = new Footer(foot, "inline for footer");
+		var myLeftSidebar = new LeftSidebar(leftSide, "inline for left side bar");
+		var myRightSidebar = new RightSidebar(rightSide, "inline for right side bar");
+		var myMainContent = new MainContent(mainCont, "inline for main content");
+		var myNavigationBar = new NavigationBar(navBar, "inline for nav bar");
+
+		// myPageView parameters
+		var modList = [myHeader, myFooter, myLeftSidebar, myRightSidebar, myMainContent, myNavigationBar];
+		var modListSize = modList.length;
+		var inboxQueue = [];
+		var outboxQueue = [];
+		var inboxQueueSize = inboxQueue.length;
+		var outboxQueueSize = outboxQueue.length;
+
+		var myPageView = new PageView(modList, modListSize, inboxQueue, outboxQueue, inboxQueueSize, outboxQueueSize);
+
+		// Function to replace html w/ inline code vars
+		window.onload = function() {
+       		//when the document is finished loading, replace everything in between class's tags with the value of x.inlineCode
+
+	       	// Header 
+	       	document.getElementByClassName("headInline").innerHTML=myHeader.inlineCode;
+
+	   		// Footer
+	   		document.getElementByClassName("footerInline").innerHTML=myFooter.inlineCode;
+
+	   		// Left Side Bar
+	   		document.getElementByClassName("leftInline").innerHTML=myLeftSidebar.inlineCode;
+
+	   		// Right Side Bar
+	   		document.getElementByClassName("rightInline").innerHTML=myRightSidebar.inlineCode;
+
+			// Main Content
+			document.getElementByClassName("mainContInline").innerHTML=myMainContent.inlineCode;
+
+			// Navigation Bar
+			document.getElementByClassName("navBarInline").innerHTML=myNavigationBar.inlineCode;
+		}
+
+
+
+	</script>
+
+
+
+	<div class="headerClass">
+		<p class="headerInlineClass"> hi </p> <!-- how to get title for header from js to html -->
+	</div>
+
+	<div class="navigationBarClass">
+		<p class="navigationBarInlineClass"> hi </p>
+	</div>
+
+	<div class="rowClass">
+
+		<div class="leftSideBarClass"> 
+			<p class="leftSideBarInlineClass"> hi </p>
+
+		</div>
+
+		<div class="mainContentClass"> 
+			<p class="mainContentInlineClass">hi </p>
+
+		</div>
+
+		<div class="rightSideBarClass"> 
+			<p class="rightSideBarInlineClass"> hi </p>
+
+		</div>
+	</div>
+
+	<div class="footerClass"> 
+		<p class="footerInlineClass">hi </p>
+	</div>
+
+
+
+
+</body>
+</html>
