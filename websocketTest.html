@@ -1,0 +1,132 @@
+<!--
+Web socket tester   
+-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+	<title>untitled</title>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+	<meta name="generator" content="Geany 1.24.1" />
+ <script type="text/javascript">
+       
+       
+var ws;  //main web socket variable
+  
+ if ("WebSocket" in window)
+	{
+           //~ alert("WebSockets are supported");
+
+           console.log("WebSockets are supported");
+               
+<<<<<<< HEAD
+               // Let us open a web socket
+			ws = new WebSocket("ws://paul.creacompute.lbl.gov:8888"); //instantiate the object //connect to server
+=======
+            // Let us open a web socket
+			//ws = new WebSocket("ws://localhost:8080/engine"); //instantiate 
+			//ws = new WebSocket("ws://localhost:8765");
+			ws = new WebSocket("ws://73.70.24.234:8080/"); //instantiate the object //connect to server
+>>>>>>> a9bf1001170534ad1f71bdc99781eb35decd097d
+	}
+	else
+	{
+		//~ alert("WebSockets not supported");
+           
+		console.log("WebSockets not supported");
+		ws = null; //not good
+	}
+  
+</script>
+
+
+</head>
+
+<body>
+
+
+
+      <br>
+      <br>
+      <br>
+      <br>
+<center>
+
+<br>
+<span id= 'status'></span>
+<script>
+	
+	ws.onopen = function()
+               {
+                //status of connections
+				
+				document.getElementById('status').innerHTML = "websocket connected to server";
+            
+               };
+				
+	ws.onclose = function()
+               {
+                
+				document.getElementById('status').innerHTML = "websocket not connected to server";
+            
+
+               };
+				 
+
+</script>
+
+
+      <br>
+<!--
+<button onclick='ws.open()'>Reconnect</button>
+-->
+      <br>
+      <br>
+      <br><br>
+
+
+
+<textarea id='mainText'>
+input text
+
+</textarea>
+
+<br>
+<br>
+
+
+<!--
+<button onclick='WebSocketTest()'>Check websockets here</button>
+-->
+
+<button onclick='ws.send(document.getElementById("mainText").value)'>send a message to server</button>
+
+<br>
+<br>
+
+<b>Below is server send data</b>
+<br>
+<br>
+
+<span id='mainSpan'></span>	
+
+<script>
+//callback for recieving a message
+
+ws.onmessage = function (evt) 
+               { 
+                  var msg = evt.data;
+                  document.getElementById("mainSpan").innerHTML = msg + "<br>";
+                  alert("Message is received...");
+               };
+				
+
+</script>
+
+</center>
+
+</body>
+
+</html>
