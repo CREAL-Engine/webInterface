@@ -105,7 +105,7 @@
 		    	this = null;
 		    } //delete the module
 		    purge(); //same a delete
-		    update(); //update
+		    update(); //update, called when putting off updating inclide code for user, make update overloaded, psuedo overload, if based on number if args
 		    update(inline, idName) {
 		    	getElementByID(idName).innherHTML = inline;
 		    } //an inline update with new inline code.  // use innherHTML, take in string, and idname, update html 

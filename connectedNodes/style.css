@@ -1,0 +1,21 @@
+body {
+    font-family: sans-serif;
+    color: white;
+    background-color: midnightblue;
+}
+
+svg {
+    background-color: white;
+    display: block;
+    margin: auto;
+    shape-rendering: geometricPrecision;
+    rx: 20;
+    ry: 20;
+
+}
+
+
+circle {
+  fill: midnightblue;
+  /*opacity: .75;*/
+}

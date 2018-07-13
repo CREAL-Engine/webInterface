@@ -1,0 +1,54 @@
+
+.headerClass {
+    background-color: Lavender;
+    text-align: center;
+    font-family: verdana;
+    color: purple;
+    width: 100%;
+}
+
+.navigationBarClass {
+    background-color: lightyellow;
+    text-align: center;
+    font-family: verdana;
+    color: darkgoldenrod;
+    width: 100%;
+}
+
+.mainContentClass {
+    background-color: LightBlue;
+    text-align: center;
+    font-family: verdana;
+    color: blue;
+    float: left;
+    width: 50%;
+}
+
+.leftSideBarClass {
+    background-color: LightGreen;
+    text-align: center;
+    font-family: verdana;
+    color: green;
+    float: left;
+    width: 25%;
+}
+
+.rightSideBarClass {
+    background-color: pink;
+    text-align: center;
+    font-family: verdana;
+    color: DeepPink;
+    float: left;
+    width: 25%;
+
+
+}
+
+.footerClass {
+    background-color: Turquoise;
+    text-align: center;
+    font-family: verdana;
+    color: Teal;
+
+}
+
