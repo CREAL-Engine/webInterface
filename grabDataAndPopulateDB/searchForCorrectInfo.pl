@@ -227,16 +227,16 @@ my $qrstring = '\b(' . (join '|', @stopList) . ')\b';
 my %mainHashObject;
 
 
-my $conn = Net::RabbitFoot->new()->load_xml_spec()->connect(
-    host => 'localhost',
-    port => 5672,
-    user => 'guest',
-    pass => 'guest',
-    vhost => '/',
-);
+#~ my $conn = Net::RabbitFoot->new()->load_xml_spec()->connect(
+    #~ host => 'localhost',
+    #~ port => 5672,
+    #~ user => 'guest',
+    #~ pass => 'guest',
+    #~ vhost => '/',
+#~ );
 
 
-my $chan = $conn->open_channel();
+#~ my $chan = $conn->open_channel();
 
 
 
@@ -255,7 +255,7 @@ foreach my $pubMedIdXml ($xmlListOfIds->findnodes('/eSearchResult/IdList')) {
  
 }
 
-
+print "[\n"; 
 
 #~ chomp $tmp;
 @pubMedIdList =  split('\n', $globStringBuffer);
@@ -274,7 +274,7 @@ for ($i = 3; $i < @pubMedIdList; $i++)
 	#~ exit 0;
 				$pubMedID = $pubMedIdList[$i] ; 
 				if ($pubMedID eq " ") {next;}
-				print "Getting data \n "; 
+				#~ print "Getting data \n "; 
 				$xmlData = `curl -s "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=$pubMedID&retmode=xml"`;
 
 
@@ -331,18 +331,21 @@ for ($i = 3; $i < @pubMedIdList; $i++)
 				#~ print "\n" . $mainHashObject{'stemmedAbstractData'} . "\n"; 
 
 				my $json_text = JSON->new->utf8->encode(\%mainHashObject);
-				#~ print $json_text; #test the json string
+				print $json_text; #test the json string
 				
-				$chan->publish(
-					exchange => '',
-					routing_key => 'arangodb',
-					body => $json_text,
-				);
+				#~ $chan->publish(
+					#~ exchange => '',
+					#~ routing_key => 'arangodb',
+					#~ body => $json_text,
+				#~ );
 				
-				
-				sleep 2; #make sure to sleep right here 
+				#~ exit 0; #kk
+				print ",\n"; # this is the comma part right here
+				goto STOP;
+				sleep 1; #make sure to sleep right here 
 }; 
+STOP:; 
+print qq|{"sentinal0":"sentinal1"}| . "\n"; 
+print "]\n"; 
 
-
-
-$conn->close();
+#~ $conn->close();
