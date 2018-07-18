@@ -341,10 +341,10 @@ for ($i = 3; $i < @pubMedIdList; $i++)
 				
 				#~ exit 0; #kk
 				print ",\n"; # this is the comma part right here
-				goto STOP;
+				
 				sleep 1; #make sure to sleep right here 
 }; 
-STOP:; 
+
 print qq|{"sentinal0":"sentinal1"}| . "\n"; 
 print "]\n"; 
 
