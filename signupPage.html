@@ -10,9 +10,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta http-equiv="Content-Language" content="English" />
-    <link rel="stylesheet" href="bootstrap.min.css" />
+    <link rel="stylesheet" href="./bootstrap.min.css" />
+<!--
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+-->
+    
     <style> 
-	.space_break {
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+.space_break {
 	
 	padding: 30px;
 	
@@ -46,7 +56,7 @@
 		background-position:center; 
 		
 		 
-
+ margin-bottom: 60px; /* Margin bottom by footer height */
 			
 			
 		}
@@ -103,7 +113,18 @@
 			  width:100%;
 			  /*width: 100%;*/
 			  /*height: 100%;*/
+<!--
 			 bottom:auto;
+-->
+			 
+			   position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 60px; /* Set the fixed height of the footer here */
+  line-height: 60px; /* Vertically center the text there */
+<!--
+  background-color: #f5f5f5;
+-->
 			
 			}
 		
@@ -374,16 +395,205 @@ textarea {
 @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
 @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
 
+
+#mapView {
+      position: absolute;
+      width: 100%;
+      height: 70%;
+    }
 </style> 
+
+
+<!--
+<script src="vivagraph.min.js"></script>
+-->
+<script src="vue.js"></script>
+<!--
+<script src="graphobj.js"></script>
+-->
+
+
+<script src="sigma.min.js"></script>
+<script src="popper.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="plugins/sigma.parsers.json.min.js"></script>
+<script src="plugins/sigma.layout.forceAtlas2.min.js"></script>
+<script src="plugins/sigma.plugins.dragNodes.min.js"></script>
+<script src="plugins/sigma.renderers.edgeLabels.min.js"></script>
+<script src="plugins/sigma.renderers.edgeDots.min.js"></script>
+
+
+<script>
+//websockets 
+
+
+
+
+//this is how the server should send out stuff
+var tempNodeValeSchema = {
+	"key":"",
+	"id":"",
+	"tittle":""
+};  
+
+
+
+
+
+
+
+var ws;  //main web socket variable
+var isConected = false; 
+
+ if ("WebSocket" in window)
+	{
+           //~ alert("WebSockets are supported");
+
+           console.log("WebSockets are supported");
+           ws = new WebSocket("ws://localhost:8080"); //this is for testing
+           //~ ws = new WebSocket("ws://paul.creacompute.lbl.gov:8080"); //this line is for production
+	   }
+	   
+	   else
+	   {
+		   
+		   ws = null; //bad
+	   }
+
+
+</script>
+
 
 <script>
 
+var domStateObj = {"mainView":"","subView":""}; //basicially a state machine for changing the layout and then using vue to do some cool stuff
+
+var navBarV;
+var dataTableV;
+var auxMenuV;
+
+var nodesNstuff = {
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "A node",
+      "x": 0,
+      "y": 0,
+      "size": 5
+    },
+    {
+      "id": "n1",
+      "label": "Another node",
+      "x": 1,
+      "y": 1,
+      "size": 8
+    },
+    {
+      "id": "n2",
+      "label": "And a last one",
+      "x": 1,
+      "y": 3,
+      "color":"#668f3c",
+      "size": 10
+    }
+  ],
+  "edges": [
+    {
+      "id": "e0",
+      "source": "n0",
+      "color":"#00000",
+            "type":"arrow",
+      "target": "n1"
+    },
+    {
+      "id": "e1",
+      "source": "n1",
+      "color":"#00000",
+            "type":"arrow",
+      "target": "n2"
+    },
+    {
+      "id": "e2",
+      "source": "n2",
+      "color":"#00000",
+      "type":"arrow",
+      "target": "n0"
+    }
+  ]
+};
+
+
+
 //global variables here
+
+var menuItemsForMap = {};
+var menuItemsForData = {};
+var menuItemsForTable = {};
+var menuItemsForRaw = {};
+
+
+var auxDataItems = {
+	"title":"",
+	"m1Header":"",
+	"m1Payload": [],
+	"m2Header":"",
+	"m2Payload": [],
+	"m3Header":"",
+	"m3Payload": [],
+	"m4Header":"",
+	"m4Payload": [],
+	"m5Header":"",
+	"m5Payload": [],
+	"m6Header":"",
+	"m6Payload": []
+}
+
+
 
 var connectedToServer = 0; //this determines if we are connected to the server or not
 var serverName = "paul.creacompute.lbl.gov"; //default server name
 var internalKey = "null"; //key grabbed from server
 
+var testingVariable = [
+						{"lthis":"can","happen":"now"},
+						{"lthis":"can","happen":"now1"},
+						{"lthis":"can","happen":"now2"},
+						{"lthis":"can","happen":"now3"},
+						{"lthis":"can","happen":"now4"},
+						
+						
+					]; //testing out this datastructure
+
+var mainTableObj = []; //this is the main table right here
+
+var selectedNodes = []; //the stack for the selected nodes
+
+var something = []; //I dunno
+
+var mapNavs = 
+[
+				{ "view" :"Parts of Speech", "function":"","link":""},
+				{ "view" :"LDA", "function":"","link":""},
+				{ "view" :"Location", "function":"","link":""},
+]; 
+			
+var dataNavs = 
+[
+				{ "view" :"Sentiment", "function":"","link":""},
+				{ "view" :"Regression", "function":"","link":""},
+				{ "view" :"Neural", "function":"","link":""},
+]; 
+
+
+
+var searchNavs = 
+[
+				{ "view" :"Search", "function":"","link":""},
+				{ "view" :"Raw", "function":"","link":""},
+				{ "view" :"Blah", "function":"","link":""},
+]; 
 
 
 </script>
@@ -399,35 +609,83 @@ var internalKey = "null"; //key grabbed from server
 		 
 
         <ul>
-          <li><a onclick="showOrHide('navBarContents');" href='#'><img alt="-" src="open-menu-symbolic.svg" width="30px" height="20px" ></a></li>
-          <li><span class="logo">Project Sarah</span> </li>
-          <li>-</li>
-          <li>-</li>
-          <li>-</li>
+          <li><a onclick="showOrHide('navBarContents');" v-on:keyup.left="showOrHide('navBarContents');" class="pr-2" href='#'><img alt="-" src="open-menu-symbolic.svg" width="30px" height="20px" ></a></li>
+          <li><span class="logo pr-2">Project Sarah</span> </li>
+          <li class="pr-2"></li>
+          <li class="pr-2" id="username">
+				<span class="badge badge-pill badge-light">{{ username }}</span>
+		</li>
+		<script>
+		var username = new Vue({
+			  el: '#username',
+			  data: {
+				username: 'Guest User'
+			  }
+			})
+		</script>
+          <li></li>
           <li></li>
           <li><img alt="-" src="application-rss+xml-symbolic.svg" width="30px" height="30px" ></li>
         </ul>
 
 
+<script>
+
+</script>
+
+
+<div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Dropdown button
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="#">Action</a>
+    <a class="dropdown-item" href="#">Another action</a>
+    <a class="dropdown-item" href="#">Something else here</a>
+  </div>
+</div>
 </header>
     <script>
 
 
-function showOrHide(elementId)
+function showOrHide(elementId, condition)
 {
-	if (document.getElementById(elementId).hidden == true)
-	{
-		document.getElementById(elementId).hidden = false;
-		return -1; //false
+	
+	if (condition)
+	{	
+		if(condition == 1)
+		{
+			document.getElementById(elementId).hidden = false;
+			return 1; 
+		}
+		if(condition == 0)
+		{
+			
+			document.getElementById(elementId).hidden = true;
+			return 0;
+		}
+		else
+		{
+			return -1;
+		}
+		
 	}
+
 	else
 	{
-		document.getElementById(elementId).hidden = true;
-		return 1; //true
+		if (document.getElementById(elementId).hidden == true)
+		{
+			document.getElementById(elementId).hidden = false;
+			return -1; //false
+		}
+		else
+		{
+			document.getElementById(elementId).hidden = true;
+			return 1; //true
+		}
 	}
+
 }
-
-
 
 
 
@@ -435,17 +693,55 @@ function showOrHide(elementId)
 
 </script> 
 
-<ul class="nav nav-tabs">
+<ul class="nav nav-tabs" id="mainNavBar">
   <li class="nav-item">
-    <a class="nav-link active" href="#">Active</a>
+    <a class="nav-link active naver" href="#" onclick="switchOff(this); selectView('mapView'); navBarV.items = mapNavs;">Map</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="#">Link</a>
+    <a class="nav-link naver" href="#" onclick="switchOff(this); selectView('dataView'); navBarV.items = dataNavs;">Data</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="#">Link</a>
+    <a class="nav-link naver" href="#" onclick="switchOff(this); selectView('rawView'); navBarV.items = searchNavs;">Search</a>
   </li>
 </ul>
+
+<script>
+
+function switchOff(elem)
+{
+	var navers = document.getElementsByClassName("naver");
+	var i = 0;
+	
+	for(i = 0; i < navers.length; i++)
+	{
+		console.log(navers[i]);
+			navers[i].classList.remove('active');
+	}
+	
+	elem.classList.add('active');
+	
+	return 0;
+}
+
+function selectView(elem)
+{
+	var middles = document.getElementsByClassName("middle");
+	var i = 0;
+	
+	for(i = 0; i < middles.length; i++)
+	{
+		console.log(middles[i]);
+			middles[i].hidden = true;
+	}
+	
+	document.getElementById(elem).hidden = false;
+	
+	return 0;
+}
+
+
+</script>
+
 
 
 <div id="selectedNodeText"> </div>
@@ -454,21 +750,30 @@ function showOrHide(elementId)
 
 
 		
-      <nav class="nav" id="navBar">
+      <nav class="nav" id="navBar" >
 		  
-		  <div id="navBarContents">
-        <ul>
-          <li><a href="#">Item 1</a></li>
-          <br />
-          <li><a href="#">Item 2</a></li>
-          <br />
-          <li><a href="#">Item 3</a></li>
-          <br />
+		  <div id="navBarContents" hidden>
+        <ul v-for="(item, index) in items" >
+          <li><a href="#">{{ item.view }}</a></li><br />
         </ul>
 		  </div>
 
 
+
+
       </nav>
+
+
+		 <script>
+		 navBarV = new Vue({
+		  el: '#navBar',
+		  data: {
+			parentMessage: 'Parent',
+			items: mapNavs
+		  }
+		})
+		 
+		 </script>
 
 <script>
 
@@ -477,21 +782,122 @@ function showOrHide(elementId)
 </script>
 
 
-      <article class="article" id="middleArea">
-<div style="background-color: transparent;">
- <img class="rotateSpecial" src="process-working-symbolic.svg" width="30px" height="20px" id="loadingAnim" hidden>
-      <div class="jumbotron">
-  <h1 class="display-4">Welcome to Project Sarah!</h1>
-  <p class="lead">The premiere site for aging based bioinformatics data</p>
-  <hr class="my-4">
-  <p>Learn more!</p>
-  <a class="btn btn-primary btn-lg" href="#" role="button">Sign Up</a>
-	</div>
+<img class="rotateSpecial" src="process-working-symbolic.svg" width="30px" height="20px" id="loadingAnim" hidden>
+<article class="article" id="middleArea">
+<div  class="mx-auto" style="background-color: transparent; width: 100%;">
 
+ 
+ 
+<!--
+THIS IS THE MAIN DATA TABLE RIGHT HERE
+-->
+<span id="dataView" class="middle" hidden>
+		<table class="table table-dark">
+		  <thead id="dataTable">
+			<tr>
+			  <th scope="col">#</th>
+			  <th scope="col">First</th>
+			  <th scope="col">Last</th>
+			  <th scope="col">Handle</th>
+			</tr>
+		 <tr v-for="(item, index) in items" >
+			  <th scope="col">{{index}}</th>
+			  <td> {{ parentMessage }}</td>
+			  <td>{{ item.happen }}</td>
+			  <td>@mdo</td>
+			</tr>
+
+		  </thead>
+		  <tbody>
+
+
+			</tbody>
+		</table>
+		 
+		 <script>
+		 dataTableV = new Vue({
+		  el: '#dataTable',
+		  data: {
+			parentMessage: 'Parent',
+			items: testingVariable
+		  }
+		})
+		 
+		 </script>
+ 
+ </span>
+
+<span id="mapView" class="middle"></span>
+
+<script>
+ var s = new sigma({
+  renderers: [
+    {
+      container: document.getElementById('mapView'),
+      type: 'canvas' // sigma.renderers.canvas works as well
+    }
+  ]
+  ,
+  edges: {
+            type: 'arrow'
+        }
+});
+	s.graph.read(nodesNstuff); //read the json structure
+       s.refresh();
+       s.startForceAtlas2();
+       //~ var dragListener = new sigma.plugins.dragNodes(s,s.renderers[0]);
+</script>
+
+
+<span id="rawView" class="middle" hidden>
+<form>
+<input class="form-control form-control-lg" type="text" placeholder="Search"> <br>
+ <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+</span>
+
+
+<span onload="selectView('mapView');"></span>
 </div>
       </article>
-      <aside class="aside" id="rightSideBar"> </aside>
-      <footer> C.R.E.A.
+      <aside class="aside" id="rightSideBar">
+		  <div id="auxMenu">
+		  <h4 class="alert alert-light" role="alert">Name</h4>
+		  <ul>
+		  <li>Yo</li>
+		  <li>Yo</li>
+		  <li>Yo</li>
+		  </ul>
+		  
+		  <h5>Connections</h5>
+
+		  <ul>
+		  <li>Yo</li>
+		  <li>Yo</li>
+		  <li>Yo</li>
+		  </ul>
+		  
+		  
+		  <h5>Links</h5>
+
+		  <ul>
+		  <li>Yo</li>
+		  <li>Yo</li>
+		  <li>Yo</li>
+		  </ul>
+		  
+		  
+		   hello<br>hello<br>hello<br>hello<br>hello<br>hello<br> 
+		  </div>
+
+
+		   
+		   
+		   </aside>
+      
+<!--
+      <footer > C.R.E.A.
         <details>
           <summary>Copyright 2016-2018.</summary>
           <p> - by The Center for Research and Education on Aging. All Rights
@@ -501,6 +907,22 @@ function showOrHide(elementId)
             Berkeley National Laboratories.</p>
         </details>
       </footer>
+-->
+
+
     </div>
   </body>
 </html>
+<script>
+
+function  returnGraphNode()
+{
+	
+	
+	return 0; 
+	
+}
+
+
+
+</script>
