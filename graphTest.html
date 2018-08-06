@@ -1,0 +1,138 @@
+<!--
+   graphTest.html
+   
+   Copyright 2018 romxero <romxero@unknown7cdd90fb67b8.att.net>
+   
+   This program is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; either version 2 of the License, or
+   (at your option) any later version.
+   
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+   
+   You should have received a copy of the GNU General Public License
+   along with this program; if not, write to the Free Software
+   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+   MA 02110-1301, USA.
+   
+   
+-->
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+	<title>untitled</title>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+	<meta name="generator" content="Geany 1.33" />
+	
+	
+	
+<script src="sigma.min.js"></script>
+<script src="plugins/sigma.parsers.json.min.js"></script>
+<!--
+<script src="plugins/sigma.renderers.customShapes.min.js"></script>
+-->
+<script src="plugins/sigma.layout.forceAtlas2.min.js"></script>
+<script src="plugins/sigma.plugins.dragNodes.min.js"></script>
+<script src="plugins/sigma.renderers.edgeLabels.min.js"></script>
+<script src="plugins/sigma.renderers.edgeDots.min.js"></script>
+
+
+</head>
+<style>
+#container {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+
+</style>
+<script>
+
+
+var nodesNstuff = {
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "A node",
+      "x": 0,
+      "y": 0,
+      "size": 5
+    },
+    {
+      "id": "n1",
+      "label": "Another node",
+      "x": 1,
+      "y": 1,
+      "size": 8
+    },
+    {
+      "id": "n2",
+      "label": "And a last one",
+      "x": 1,
+      "y": 3,
+      "color":"#668f3c",
+      "size": 10
+    }
+  ],
+  "edges": [
+    {
+      "id": "e0",
+      "source": "n0",
+      "color":"#00000",
+            "type":"arrow",
+      "target": "n1"
+    },
+    {
+      "id": "e1",
+      "source": "n1",
+      "color":"#00000",
+            "type":"arrow",
+      "target": "n2"
+    },
+    {
+      "id": "e2",
+      "source": "n2",
+      "color":"#00000",
+      "type":"arrow",
+      "target": "n0"
+    }
+  ]
+};
+
+</script>
+
+<body >
+<div id="container"></div>
+
+</div>
+<script>
+ var s = new sigma({
+  renderers: [
+    {
+      container: document.getElementById('container'),
+      type: 'canvas' // sigma.renderers.canvas works as well
+    }
+  ]
+  ,
+  edges: {
+            type: 'arrow'
+        }
+});
+	s.graph.read(nodesNstuff); //read the json structure
+       s.refresh();
+       //~ s.startForceAtlas2();
+       var dragListener = new sigma.plugins.dragNodes(s,s.renderers[0]);
+    </script>
+</body>
+
+
+<script>
+			
+</script>	
+
+</html>

@@ -11,9 +11,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta http-equiv="Content-Language" content="English" />
     <link rel="stylesheet" href="./bootstrap.min.css" />
-<!--
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
--->
     
     <style> 
 
@@ -404,10 +401,27 @@ textarea {
 </style> 
 
 
+<script>
+var testJsonObject = {
+		"pubMedID": "30016006",
+		"day": "17",
+		"month": "Jul",
+		"cleanedAbstractData": "\n                Ensemble recording methods  pervasive  basic  clinical neuroscience research. Invasive neural implants  used  patients  drug resistant epilepsy  localize seizure origin,  neuropsychiatric  Parkinson's patients  alleviate symptoms via deep brain stimulation,   animal models  conduct basic research. Studies addressing  brain's physiological response  chronic electrode implants demonstrate   mechanical trauma  insertion  followed   acute inflammatory response  well   chronic foreign body response. Despite use  invasive recording methods  animal models  humans, little  known   effect  behavior  healthy populations.\n                 quantify  effect  chronic electrode implantation targeting  hippocampus  recognition memory performance.\n                Four healthy female rhesus macaques  tested   delayed nonmatching--sample (DNMS) recognition memory task    hippocampal implantation   tetrode array device.\n                Trials  criterion  recognition memory performance   significantly different  vs.  chronic electrode implantation.\n                 results suggest  chronic implants   produce significant impairments  DNMS performance.\n                © 2018 International Neuromodulation Society.\n            ",
+		"abstractData": "\n                Ensemble recording methods are pervasive in basic and clinical neuroscience research. Invasive neural implants are used in patients with drug resistant epilepsy to localize seizure origin, in neuropsychiatric or Parkinson's patients to alleviate symptoms via deep brain stimulation, and with animal models to conduct basic research. Studies addressing the brain's physiological response to chronic electrode implants demonstrate that the mechanical trauma of insertion is followed by an acute inflammatory response as well as a chronic foreign body response. Despite use of invasive recording methods with animal models and humans, little is known of their effect on behavior in healthy populations.\n                To quantify the effect of chronic electrode implantation targeting the hippocampus on recognition memory performance.\n                Four healthy female rhesus macaques were tested in a delayed nonmatching-to-sample (DNMS) recognition memory task before and after hippocampal implantation with a tetrode array device.\n                Trials to criterion and recognition memory performance were not significantly different before vs. after chronic electrode implantation.\n                Our results suggest that chronic implants did not produce significant impairments on DNMS performance.\n                © 2018 International Neuromodulation Society.\n            ",
+		"articleTitle": "Behavioral Impact of Long-Term Chronic Implantation of Neural Recording Devices in the Rhesus Macaque.",
+		"journalTitle": "Neuromodulation : journal of the International Neuromodulation Society",
+		"year": "2018",
+		"authors": "Kyle Colin T, Permenter Michele R, Vogt Julie A, Rapp Peter R, Barnes Carol A"
+	};
+</script>
+
+<script src="vue.js"></script>
+
+
+
 <!--
 <script src="vivagraph.min.js"></script>
 -->
-<script src="vue.js"></script>
 <!--
 <script src="graphobj.js"></script>
 -->
@@ -474,6 +488,30 @@ var navBarV;
 var dataTableV;
 var auxMenuV;
 
+
+
+function returnNodes(objStructure)
+{
+
+	var nodesToReturn = {
+	
+	  "nodes": [], //the nodes 
+	  "edges": [] //the edges
+		};
+		
+	
+	
+	
+	
+	return nodesToReturn; 
+	
+	
+}
+
+
+
+
+
 var nodesNstuff = {
   "nodes": [
     {
@@ -504,7 +542,7 @@ var nodesNstuff = {
       "id": "e0",
       "source": "n0",
       "color":"#00000",
-            "type":"arrow",
+       "type":"arrow",
       "target": "n1"
     },
     {
@@ -572,6 +610,12 @@ var selectedNodes = []; //the stack for the selected nodes
 
 var something = []; //I dunno
 
+
+var ldaObj; 
+var posObj; 
+var tableObj; 
+
+//these are the menus right here
 var mapNavs = 
 [
 				{ "view" :"Parts of Speech", "function":"","link":""},
@@ -634,16 +678,6 @@ var searchNavs =
 </script>
 
 
-<div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Dropdown button
-  </button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <a class="dropdown-item" href="#">Action</a>
-    <a class="dropdown-item" href="#">Another action</a>
-    <a class="dropdown-item" href="#">Something else here</a>
-  </div>
-</div>
 </header>
     <script>
 
@@ -896,18 +930,34 @@ THIS IS THE MAIN DATA TABLE RIGHT HERE
 		   
 		   </aside>
       
-<!--
-      <footer > C.R.E.A.
-        <details>
-          <summary>Copyright 2016-2018.</summary>
-          <p> - by The Center for Research and Education on Aging. All Rights
-            Reserved.</p>
-          <p>All content and graphics on this web site are the property of the
-            company The Center for Research and Education on Aging and Lawrence
-            Berkeley National Laboratories.</p>
-        </details>
+      <footer > 
+
+				<center>
+					<div class="btn-group dropup">
+					  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Dropdown button
+					  </button>
+					  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+						<a class="dropdown-item" href="#">Action</a>
+						<a class="dropdown-item" href="#">Another action</a>
+						<a class="dropdown-item" href="#">Something else here</a>
+					  </div>
+					</div>
+
+
+				<b> CREA </b>
+				</center>
+
+					<details>
+					  <summary>Copyright 2016-2018.</summary>
+					  <p> - by The Center for Research and Education on Aging. All Rights
+						Reserved.</p>
+					  <p>All content and graphics on this web site are the property of the
+						company The Center for Research and Education on Aging and Lawrence
+						Berkeley National Laboratories.</p>
+					</details>
+
       </footer>
--->
 
 
     </div>
