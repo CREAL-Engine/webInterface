@@ -393,69 +393,43 @@ textarea {
 @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
 
 
+<!--
 #mapView {
       position: absolute;
       width: 100%;
       height: 70%;
     }
+-->
+
+
 </style> 
 
 
-<script>
-var testJsonObject = {
-		"pubMedID": "30016006",
-		"day": "17",
-		"month": "Jul",
-		"cleanedAbstractData": "\n                Ensemble recording methods  pervasive  basic  clinical neuroscience research. Invasive neural implants  used  patients  drug resistant epilepsy  localize seizure origin,  neuropsychiatric  Parkinson's patients  alleviate symptoms via deep brain stimulation,   animal models  conduct basic research. Studies addressing  brain's physiological response  chronic electrode implants demonstrate   mechanical trauma  insertion  followed   acute inflammatory response  well   chronic foreign body response. Despite use  invasive recording methods  animal models  humans, little  known   effect  behavior  healthy populations.\n                 quantify  effect  chronic electrode implantation targeting  hippocampus  recognition memory performance.\n                Four healthy female rhesus macaques  tested   delayed nonmatching--sample (DNMS) recognition memory task    hippocampal implantation   tetrode array device.\n                Trials  criterion  recognition memory performance   significantly different  vs.  chronic electrode implantation.\n                 results suggest  chronic implants   produce significant impairments  DNMS performance.\n                © 2018 International Neuromodulation Society.\n            ",
-		"abstractData": "\n                Ensemble recording methods are pervasive in basic and clinical neuroscience research. Invasive neural implants are used in patients with drug resistant epilepsy to localize seizure origin, in neuropsychiatric or Parkinson's patients to alleviate symptoms via deep brain stimulation, and with animal models to conduct basic research. Studies addressing the brain's physiological response to chronic electrode implants demonstrate that the mechanical trauma of insertion is followed by an acute inflammatory response as well as a chronic foreign body response. Despite use of invasive recording methods with animal models and humans, little is known of their effect on behavior in healthy populations.\n                To quantify the effect of chronic electrode implantation targeting the hippocampus on recognition memory performance.\n                Four healthy female rhesus macaques were tested in a delayed nonmatching-to-sample (DNMS) recognition memory task before and after hippocampal implantation with a tetrode array device.\n                Trials to criterion and recognition memory performance were not significantly different before vs. after chronic electrode implantation.\n                Our results suggest that chronic implants did not produce significant impairments on DNMS performance.\n                © 2018 International Neuromodulation Society.\n            ",
-		"articleTitle": "Behavioral Impact of Long-Term Chronic Implantation of Neural Recording Devices in the Rhesus Macaque.",
-		"journalTitle": "Neuromodulation : journal of the International Neuromodulation Society",
-		"year": "2018",
-		"authors": "Kyle Colin T, Permenter Michele R, Vogt Julie A, Rapp Peter R, Barnes Carol A"
-	};
-</script>
-
 <script src="vue.js"></script>
-
-
-
-<!--
-<script src="vivagraph.min.js"></script>
--->
-<!--
-<script src="graphobj.js"></script>
--->
-
-
 <script src="sigma.min.js"></script>
 <script src="popper.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="jquery-3.2.1.slim.min.js"></script>
+<script src="bootstrap.min.js"></script>
 <script src="plugins/sigma.parsers.json.min.js"></script>
 <script src="plugins/sigma.layout.forceAtlas2.min.js"></script>
 <script src="plugins/sigma.plugins.dragNodes.min.js"></script>
 <script src="plugins/sigma.renderers.edgeLabels.min.js"></script>
 <script src="plugins/sigma.renderers.edgeDots.min.js"></script>
+<script src="aux.js"></script>
 
 
 <script>
 //websockets 
 
 
+var tableViewObject = null;  //this is for the table view page
+var graphViewObject = null;  //this is for the graph view page
+var rawViewObject = null;  //this is for the raw view page
 
 
-//this is how the server should send out stuff
-var tempNodeValeSchema = {
-	"key":"",
-	"id":"",
-	"tittle":""
-};  
-
-
-
-
-
+var connectedToServer = 0; //this determines if we are connected to the server or not
+var serverName = "paul.creacompute.lbl.gov"; //default server name
+var internalKey = "null"
 
 
 var ws;  //main web socket variable
@@ -482,37 +456,8 @@ var isConected = false;
 
 <script>
 
-var domStateObj = {"mainView":"","subView":""}; //basicially a state machine for changing the layout and then using vue to do some cool stuff
 
-var navBarV;
-var dataTableV;
-var auxMenuV;
-
-
-
-function returnNodes(objStructure)
-{
-
-	var nodesToReturn = {
-	
-	  "nodes": [], //the nodes 
-	  "edges": [] //the edges
-		};
-		
-	
-	
-	
-	
-	return nodesToReturn; 
-	
-	
-}
-
-
-
-
-
-var nodesNstuff = {
+graphViewObject = {
   "nodes": [
     {
       "id": "n0",
@@ -566,49 +511,10 @@ var nodesNstuff = {
 
 //global variables here
 
-var menuItemsForMap = {};
-var menuItemsForData = {};
-var menuItemsForTable = {};
-var menuItemsForRaw = {};
-
-
-var auxDataItems = {
-	"title":"",
-	"m1Header":"",
-	"m1Payload": [],
-	"m2Header":"",
-	"m2Payload": [],
-	"m3Header":"",
-	"m3Payload": [],
-	"m4Header":"",
-	"m4Payload": [],
-	"m5Header":"",
-	"m5Payload": [],
-	"m6Header":"",
-	"m6Payload": []
-}
-
-
-
-var connectedToServer = 0; //this determines if we are connected to the server or not
-var serverName = "paul.creacompute.lbl.gov"; //default server name
-var internalKey = "null"; //key grabbed from server
-
-var testingVariable = [
-						{"lthis":"can","happen":"now"},
-						{"lthis":"can","happen":"now1"},
-						{"lthis":"can","happen":"now2"},
-						{"lthis":"can","happen":"now3"},
-						{"lthis":"can","happen":"now4"},
-						
-						
-					]; //testing out this datastructure
 
 var mainTableObj = []; //this is the main table right here
 
 var selectedNodes = []; //the stack for the selected nodes
-
-var something = []; //I dunno
 
 
 var ldaObj; 
@@ -639,6 +545,18 @@ var searchNavs =
 				{ "view" :"Blah", "function":"","link":""},
 ]; 
 
+
+
+var auxSideMenu = { 
+	
+	"name" :"Default",
+	"authors" :"list of names",
+	"journal" :"journal title",
+	"article" :"article title",
+	"pubMedID" :"pub med id"
+	
+	
+}; 
 
 </script>
 
@@ -679,49 +597,7 @@ var searchNavs =
 
 
 </header>
-    <script>
-
-
-function showOrHide(elementId, condition)
-{
-	
-	if (condition)
-	{	
-		if(condition == 1)
-		{
-			document.getElementById(elementId).hidden = false;
-			return 1; 
-		}
-		if(condition == 0)
-		{
-			
-			document.getElementById(elementId).hidden = true;
-			return 0;
-		}
-		else
-		{
-			return -1;
-		}
-		
-	}
-
-	else
-	{
-		if (document.getElementById(elementId).hidden == true)
-		{
-			document.getElementById(elementId).hidden = false;
-			return -1; //false
-		}
-		else
-		{
-			document.getElementById(elementId).hidden = true;
-			return 1; //true
-		}
-	}
-
-}
-
-
+ <script>
 
 
 
@@ -729,52 +605,16 @@ function showOrHide(elementId, condition)
 
 <ul class="nav nav-tabs" id="mainNavBar">
   <li class="nav-item">
-    <a class="nav-link active naver" href="#" onclick="switchOff(this); selectView('mapView'); navBarV.items = mapNavs;">Map</a>
+    <a class="nav-link active naver" href="#" onclick="switchOff(this); document.getElementById('mainIframe').src='graphView.html'; navBarV.items = mapNavs;">Map</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link naver" href="#" onclick="switchOff(this); selectView('dataView'); navBarV.items = dataNavs;">Data</a>
+    <a class="nav-link naver" href="#" onclick="switchOff(this); document.getElementById('mainIframe').src='tableView.html'; navBarV.items = dataNavs;">Data</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link naver" href="#" onclick="switchOff(this); selectView('rawView'); navBarV.items = searchNavs;">Search</a>
+    <a class="nav-link naver" href="#" onclick="switchOff(this); document.getElementById('mainIframe').src='rawView.html'; navBarV.items = searchNavs;">Search</a>
   </li>
 </ul>
 
-<script>
-
-function switchOff(elem)
-{
-	var navers = document.getElementsByClassName("naver");
-	var i = 0;
-	
-	for(i = 0; i < navers.length; i++)
-	{
-		console.log(navers[i]);
-			navers[i].classList.remove('active');
-	}
-	
-	elem.classList.add('active');
-	
-	return 0;
-}
-
-function selectView(elem)
-{
-	var middles = document.getElementsByClassName("middle");
-	var i = 0;
-	
-	for(i = 0; i < middles.length; i++)
-	{
-		console.log(middles[i]);
-			middles[i].hidden = true;
-	}
-	
-	document.getElementById(elem).hidden = false;
-	
-	return 0;
-}
-
-
-</script>
 
 
 
@@ -821,108 +661,46 @@ function selectView(elem)
 <div  class="mx-auto" style="background-color: transparent; width: 100%;">
 
  
+
  
 <!--
 THIS IS THE MAIN DATA TABLE RIGHT HERE
 -->
-<span id="dataView" class="middle" hidden>
-		<table class="table table-dark">
-		  <thead id="dataTable">
-			<tr>
-			  <th scope="col">#</th>
-			  <th scope="col">First</th>
-			  <th scope="col">Last</th>
-			  <th scope="col">Handle</th>
-			</tr>
-		 <tr v-for="(item, index) in items" >
-			  <th scope="col">{{index}}</th>
-			  <td> {{ parentMessage }}</td>
-			  <td>{{ item.happen }}</td>
-			  <td>@mdo</td>
-			</tr>
-
-		  </thead>
-		  <tbody>
+<!--
+<iframe src="graphView.html"  ></iframe>
+-->
+<iframe  id="mainIframe"></iframe> 
 
 
-			</tbody>
-		</table>
-		 
-		 <script>
-		 dataTableV = new Vue({
-		  el: '#dataTable',
-		  data: {
-			parentMessage: 'Parent',
-			items: testingVariable
-		  }
-		})
-		 
-		 </script>
- 
- </span>
-
-<span id="mapView" class="middle"></span>
-
-<script>
- var s = new sigma({
-  renderers: [
-    {
-      container: document.getElementById('mapView'),
-      type: 'canvas' // sigma.renderers.canvas works as well
-    }
-  ]
-  ,
-  edges: {
-            type: 'arrow'
-        }
-});
-	s.graph.read(nodesNstuff); //read the json structure
-       s.refresh();
-       s.startForceAtlas2();
-       //~ var dragListener = new sigma.plugins.dragNodes(s,s.renderers[0]);
-</script>
-
-
-<span id="rawView" class="middle" hidden>
-<form>
-<input class="form-control form-control-lg" type="text" placeholder="Search"> <br>
- <button type="submit" class="btn btn-primary">Submit</button>
-</form>
-
-</span>
-
-
-<span onload="selectView('mapView');"></span>
 </div>
       </article>
       <aside class="aside" id="rightSideBar">
 		  <div id="auxMenu">
-		  <h4 class="alert alert-light" role="alert">Name</h4>
+		  <h4 class="alert alert-light" role="alert">{{ auxSideMenu.name }}</h4>
+		  <h5>Authors</h5>
 		  <ul>
-		  <li>Yo</li>
-		  <li>Yo</li>
-		  <li>Yo</li>
+		  <li>{{ auxSideMenu.authors }}</li>
 		  </ul>
 		  
-		  <h5>Connections</h5>
+		  <h5>Article</h5>
+		  <ul>
+		  <li>{{ auxSideMenu.article }}</li>
+		  </ul>
+		  
+		  <h5>Journal</h5>
+		  <ul>
+		  <li>{{ auxSideMenu.journal }}</li>
+		  </ul>
+		  
+		  
+		  <h5>Pubmed ID</h5>
 
 		  <ul>
-		  <li>Yo</li>
-		  <li>Yo</li>
-		  <li>Yo</li>
+		  <li>{{ auxSideMenu.pubMedID }}</li>
 		  </ul>
 		  
 		  
-		  <h5>Links</h5>
-
-		  <ul>
-		  <li>Yo</li>
-		  <li>Yo</li>
-		  <li>Yo</li>
-		  </ul>
-		  
-		  
-		   hello<br>hello<br>hello<br>hello<br>hello<br>hello<br> 
+		   
 		  </div>
 
 
@@ -930,23 +708,18 @@ THIS IS THE MAIN DATA TABLE RIGHT HERE
 		   
 		   </aside>
       
+      <script>
+      
+      var app = new Vue({
+		  el: '#auxMenu',
+		  data: {
+			auxSideMenu
+		  }
+		})
+      </script>
+      
       <footer > 
 
-				<center>
-					<div class="btn-group dropup">
-					  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						Dropdown button
-					  </button>
-					  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-						<a class="dropdown-item" href="#">Action</a>
-						<a class="dropdown-item" href="#">Another action</a>
-						<a class="dropdown-item" href="#">Something else here</a>
-					  </div>
-					</div>
-
-
-				<b> CREA </b>
-				</center>
 
 					<details>
 					  <summary>Copyright 2016-2018.</summary>
@@ -961,18 +734,18 @@ THIS IS THE MAIN DATA TABLE RIGHT HERE
 
 
     </div>
+
+<!--
+<span onload="selectView('mapView');"></span>
+-->
+
   </body>
 </html>
 <script>
 
-function  returnGraphNode()
-{
-	
-	
-	return 0; 
-	
-}
 
 
 
 </script>
+
+
