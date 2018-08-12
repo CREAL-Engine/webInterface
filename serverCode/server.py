@@ -49,8 +49,8 @@ defaultAddress = '0.0.0.0' #this is the default address for the server
 	# ~ conn = "" #nullify it 
 	#private data items
 serverName = "localhost" #default to localhost 
-userNameDb = ""
-passWordDb = ""
+userNameDb = "root"
+passWordDb = "ryuken1986"
 connection = "" #the actual queue
 channel = "" #the actual channel for the queue
 dbName = "_system" #the default database
@@ -60,7 +60,9 @@ conn = Connection(username=userNameDb, password=passWordDb)
 dataBase = conn[dbName] #main database right here
 
 
+#the main texts right here
 mainTextsToTraverse = dataBase["texts"]
+# ~ mainGraphsToTraverse = dataBase["graphs"]
 
 # ~ mainTextsToTraverse.fetchAll() #fetching all of the database right here
 
@@ -71,7 +73,7 @@ connected = set() #this is a list of connected clients
 # ~ def parseString(intString):
 
 print("starting server\n") ##just a simple message right here
-print("server version : 1.2 \n") ##just a simple message right here
+print("server version : 1.4 \n") ##just a simple message right here
 
 
 
@@ -81,28 +83,50 @@ async def mainServer(websocket, path):
 	#global connected
 	# Register.
 	# ~ connected.add(websocket)    
-	
-	recvData = null
+	returnObject = {} #main objects within list #this resets the object
+	returnList = [] #main list to return #this resets the list 
+	# ~ recvData = null
 	
 	while True:
-
+		print("hello")
 		recvData = await websocket.recv()#recieving data 
-
+		print(recvData)
+		# ~ await websocket.send(recvData)#sending data
 		try:
 			returnCommandObject = json.loads(recvData) #encoding json	
+
+			if returnCommandObject["command"] == "table":
+				for prelimGraphData in mainTextsToTraverse.fetchAll():
+					print(prelimGraphData["_key"])
+					returnObject = {}
+					returnObject["_key"] = prelimGraphData["_key"]
+					returnObject["pubMedID"] = prelimGraphData["pubMedID"]
+					returnObject["journalTitle"] = prelimGraphData["journalTitle"]
+					returnObject["articleTitle"] = prelimGraphData["articleTitle"]
+					returnList.append(returnObject)
+				await websocket.send(json.dumps(returnList))
+			elif returnCommandObject["command"] == "raw":
+				p = 1
+			elif returnCommandObject["command"] == "lda":
+				p = 1
+			elif returnCommandObject["command"] == "wordcloud":
+				p = 2
+			else: 
+				print("We had an issue doing something pertinant")
+				print(recvData)	
+				await websocket.send(json.dumps(returnList))
+
+			# ~ websocket.send("hello")
+
 		except(ValueError):
 			print("The string passed was not in proper json format")
 
 		
-		if returnCommandObject["zest"] == "wild":
-			p = 0
-		elif returnCommandObject["zest"] == "wild":
-			p = 1
-		else: 
-			print("We had an issue doing something pertinant")
+		# ~ websocket.send()
+		# ~ await websocket.send(json.dumps(returnList))
 		
 
-##sleep for a small random time right here`
+		##sleep for a small random time right here`
 		await asyncio.sleep(random.random() * 3) #sleep to save the cpu
 		
 

@@ -1,0 +1,69 @@
+
+ <!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Table View</title>
+<link rel="stylesheet" href="./bootstrap.min.css" />
+<script src="vue.js"></script>
+<script src="popper.min.js"></script>
+
+
+
+<script>
+
+
+	console.log("hello");
+	console.log(window.parent.tableViewObject);
+	
+	
+</script>
+
+</head>
+
+<body>
+
+<span id="dataView" class="middle">
+		<table class="table table-dark">
+		  <thead id="dataTable">
+			<tr>
+			  <th scope="col">#</th>
+			  <th scope="col">Title</th>
+			  <th scope="col">Journal Name</th>
+			  <th scope="col">PubMed ID</th>
+			</tr>
+		 <tr v-for="(item, index) in items" >
+			  <th scope="col">{{index}}</th>
+			  <td>{{ item.articleTitle }}</td>
+			  <td>{{ item.journalTitle }}</td>
+			  <td>{{ item.pubMedID }}</td>
+			</tr>
+
+		  </thead>
+		  <tbody>
+
+
+			</tbody>
+		</table>
+		 
+		 <script>
+		 dataTableV = new Vue({
+		  el: '#dataTable',
+		  data: {
+			items: testingVariable
+		  }
+		})
+		 
+		 </script>
+ 
+ </span>
+
+
+
+</body>
+
+
+</html> 
+
+
+

@@ -10,9 +10,16 @@ Web socket tester
 	<title>untitled</title>
 	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
 	<meta name="generator" content="Geany 1.24.1" />
+
+    <link rel="stylesheet" href="./bootstrap.min.css" />
+
+<script src="vue.js"></script>
  <script type="text/javascript">
        
-       
+
+var testingVariable = [];
+
+
 var ws;  //main web socket variable
   
  if ("WebSocket" in window)
@@ -21,19 +28,11 @@ var ws;  //main web socket variable
 
            console.log("WebSockets are supported");
                
-<<<<<<< HEAD
-               // Let us open a web socket
-			ws = new WebSocket("ws://paul.creacompute.lbl.gov:8888"); //instantiate the object //connect to server
-=======
-            // Let us open a web socket
-			//ws = new WebSocket("ws://localhost:8080/engine"); //instantiate 
-			//ws = new WebSocket("ws://localhost:8765");
-			ws = new WebSocket("ws://73.70.24.234:8080/"); //instantiate the object //connect to server
->>>>>>> a9bf1001170534ad1f71bdc99781eb35decd097d
+
+			ws = new WebSocket("ws://localhost:8080"); //instantiate 
 	}
 	else
 	{
-		//~ alert("WebSockets not supported");
            
 		console.log("WebSockets not supported");
 		ws = null; //not good
@@ -53,6 +52,8 @@ var ws;  //main web socket variable
       <br>
       <br>
 <center>
+
+
 
 <br>
 <span id= 'status'></span>
@@ -118,12 +119,21 @@ input text
 ws.onmessage = function (evt) 
                { 
                   var msg = evt.data;
+                  var internalVar = JSON.parse(msg);
+                  for (var i = 0; i < internalVar.length; i++)
+                  {
+					  testingVariable.push(internalVar[i]);
+					  console.log(internalVar[i]);
+				  }
+                  
                   document.getElementById("mainSpan").innerHTML = msg + "<br>";
-                  alert("Message is received...");
-               };
+                  //~ alert("Message is received...");
+               }; 
 				
 
 </script>
+
+
 
 </center>
 
