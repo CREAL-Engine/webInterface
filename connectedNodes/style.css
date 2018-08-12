@@ -2,20 +2,30 @@ body {
     font-family: sans-serif;
     color: white;
     background-color: midnightblue;
+    text-align: center;
+    padding-top: 25px;
 }
 
 svg {
-    background-color: white;
+    background-color: darkgray;
     display: block;
     margin: auto;
     shape-rendering: geometricPrecision;
     rx: 20;
     ry: 20;
-
 }
 
 
 circle {
   fill: midnightblue;
   /*opacity: .75;*/
+}
+
+rect {
+    fill: purple;
+}
+
+text {
+    fill: white;
+    font: sans-serif;
 }

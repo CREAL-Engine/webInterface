@@ -1,0 +1,34 @@
+body {
+    /*background-color: #e6ccff;*/
+    background-color: whitesmoke;
+    color: black;
+    font-family: sans-serif;
+    text-align: center;
+}
+
+svg {
+    /*background: white;*/
+}
+
+.San {
+    /*background-color: white;*/
+}
+
+.node rect {
+    fill-opacity: .9; /* makes node fill slightly transparent */
+    shape-rendering: crispEdges; /* makes edges of nodes sharper */
+}
+
+.node text {
+    pointer-events: none; /* prevents typing cursor when hovering over text */
+    font-size: small; /* reduces label size */
+}
+.link {
+    fill: none; /* prevents links from being boxy */
+    /*stroke: black;*/
+    stroke-opacity: .2;
+}
+
+.link:hover {
+    stroke-opacity: .5; /* increases opacity when the mouse hovers over the link */
+}
