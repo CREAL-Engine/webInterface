@@ -49,8 +49,8 @@ defaultAddress = '0.0.0.0' #this is the default address for the server
 	# ~ conn = "" #nullify it 
 	#private data items
 serverName = "localhost" #default to localhost 
-userNameDb = "root"
-passWordDb = "ryuken1986"
+userNameDb = ""
+passWordDb = ""
 connection = "" #the actual queue
 channel = "" #the actual channel for the queue
 dbName = "_system" #the default database
