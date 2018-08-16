@@ -1,0 +1,34 @@
+[
+    {"pubMedID": "949943"
+    },
+    {"tf-idf": [
+                    {"word": "try",
+                     "freq": "5"
+                    },
+                    {"word": "pancrease",
+                     "freq": "10"
+                    },
+                    {"word": "glucose",
+                     "freq": "5"
+                    },
+                    {"word": "heart",
+                     "freq": "3"
+                    },
+                    {"word": "intestine",
+                     "freq": "15"
+                    },
+                    {"word": "appendix",
+                     "freq": "20"
+                    },
+                    {"word": "colon",
+                     "freq": "7"
+                    },
+                    {"word": "galbladder",
+                     "freq": "2"
+                    },
+                    {"word": "insulin",
+                     "freq": "25"
+                    }
+                ]
+    }
+]

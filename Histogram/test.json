@@ -1,0 +1,16 @@
+[
+    {"pubMedID": "949943"
+    },
+    {"tf-idf": [
+                    {"word": "try",
+                     "freq": "5"
+                    },
+                    {"word": "pancrease",
+                     "freq": "10"
+                    },
+                    {"word": "glucose",
+                     "freq": "5"
+                    }
+                ]
+    }
+]
