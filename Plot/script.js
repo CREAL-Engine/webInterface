@@ -95,12 +95,18 @@ d3.json("test2.json", function(data) {
     x.domain([0, Math.max(xMax, yMax)]);
     y.domain([0, Math.max(xMax, yMax)]);
     
-    // Add the X Axis
+    // Add the x-axis
     svg.append("g")
         .attr("transform", "translate(0," + height + ")")
         .call(d3.axisBottom(x));
-
-    // Add the Y Axis
+    
+    // Add x-axis Label
+    svg.append("text")             
+        .attr("transform", "translate(" + (width/3) + " ," + (height + margin.top + 20) + ")")
+          .style("text-anchor", "middle")
+          .text("PubMed Documents");
+        
+    // Add the y-xis
     svg.append("g")
         .call(d3.axisLeft(y));
     

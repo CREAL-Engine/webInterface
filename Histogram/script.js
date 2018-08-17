@@ -75,10 +75,24 @@ d3.json("test2.json", function(data) {
       .attr("transform", "translate(" + margin.left + "," + (height + 25) + ")")
       .call(d3.axisBottom(x));
     
+  // Add x-axis Label
+    svg.append("text")             
+        .attr("transform", "translate(" + (width + 130) + " ," + (height + margin.top + 50) + ")")
+          .style("text-anchor", "middle")
+          .text("Words");    
+    
   // Add y-axis
   svg.append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
       .call(d3.axisLeft(y));
+    
+  // Add y-axis label
+  svg.append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("x",0 - (height / 2))
+      .attr("y", margin.left - 40)
+      .style("text-anchor", "middle")
+      .text("TF-IDF"); 
 
     
 });

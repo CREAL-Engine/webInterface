@@ -59,11 +59,13 @@ function drawWordcloud(wordCountMap) {
           .start();
     
     function draw(words) {
-        d3.select('body').append('svg')
+        
+        var svg = d3.select('body').append('svg')
             .attr("class", "WC")
             .attr('width', window.innerWidth)
-            .attr('height', window.innerHeight)
-            .append('g')
+            .attr('height', window.innerHeight);
+        
+            svg.append('g')
             //.attr('transform', 'translate(' + 700 + ',' + 400 + ')')
             .attr("transform", "translate(" + margin.left + "," + (margin.top + 100) + ")")
             .selectAll("text")
@@ -77,7 +79,17 @@ function drawWordcloud(wordCountMap) {
                 return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
               })
               .text(function(d) { return d.key; });
-        }
+        
+        // Add x-axis Label
+        svg.append("text")             
+            .attr("transform", "translate(" + (width + 130) + " ," + 25 + ")")
+              .style("text-anchor", "middle")
+              .style("font-size", "2em")
+              .style("font-family", "sans-serif")
+              .attr("fill", "slateblue")
+              .text("Top Word Frequencies");    
+    
+    }
     
     d3.layout.cloud().stop();
 }
